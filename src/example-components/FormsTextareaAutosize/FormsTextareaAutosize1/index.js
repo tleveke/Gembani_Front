@@ -28,7 +28,6 @@ export default function LivePreviewExample() {
             variant="outlined"
             className="m-3"
             fullWidth
-            id="standard-textarea"
             label="Multiline Placeholder"
             placeholder="Placeholder"
             multiline

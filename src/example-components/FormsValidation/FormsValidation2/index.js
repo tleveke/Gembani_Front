@@ -7,7 +7,7 @@ import {
   TextField
 } from '@material-ui/core';
 
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import NameIcon from '@material-ui/icons/SupervisorAccount';
@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
     .oneOf([Yup.ref('password')], 'Password does not match')
 });
 
-const Form = (props) => {
+const CustomForm = (props) => {
   const {
     values: { name, email, password, confirmPassword },
     errors,
@@ -40,7 +40,7 @@ const Form = (props) => {
 
   return (
     <Container className="py-4">
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
           className="mb-4"
@@ -124,7 +124,7 @@ const Form = (props) => {
             Validate Form
           </Button>
         </div>
-      </form>
+      </Form>
     </Container>
   );
 };
@@ -144,7 +144,7 @@ class LivePreviewExample extends Component {
     return (
       <>
         <Formik
-          render={(props) => <Form {...props} />}
+          render={(props) => <CustomForm {...props} />}
           initialValues={values}
           validationSchema={validationSchema}
           onSubmit={this.submit}

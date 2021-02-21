@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { PageTitle } from 'layout-components';
+import { PageTitle } from '../../layout-components';
 
-import { ExampleWrapperSeamless } from 'layout-components';
+import { ExampleWrapperSeamless } from '../../layout-components';
 
 import FormsControls1 from '../../example-components/FormsControls/FormsControls1';
 import FormsControls2 from '../../example-components/FormsControls/FormsControls2';
