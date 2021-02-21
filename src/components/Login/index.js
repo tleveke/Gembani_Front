@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Grid,
@@ -10,14 +10,13 @@ import {
   List,
   ListItem,
   Tooltip,
-  TextField, Container
+  TextField,
+  Container
 } from '@material-ui/core';
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
-
-
-import { useSignIn } from 'react-auth-kit'
+import { useSignIn } from 'react-auth-kit';
 
 import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
@@ -34,34 +33,32 @@ const validationSchema = Yup.object({
   email: Yup.string('Enter your email')
     .email('Enter a valid email')
     .required('Email is required'),
-  password: Yup.string('')
-    .required('Enter your password'),
+  password: Yup.string('').required('Enter your password')
 });
 
 const SignInComponent = () => {
-  const signIn = useSignIn()
+  const signIn = useSignIn();
   const [checked1, setChecked1] = useState(true);
-  const [addToken, { isLoading, data, error, errors }] = useMutation('tokens')
+  const [addToken, { isLoading, data, error, errors }] = useMutation('tokens');
   let history = useHistory();
 
-  const createToken =  async (formData, { setSubmitting }) => {
-    const res = await addToken( formData )
-    if(signIn({expiresIn:  res.data['auth-state'].expiresIn, token:res.data['auth-state'].token  ,authState: res.data['auth-state']})){ // Only if you are using refreshToken feature
-      setSubmitting(false)
-      history.push("/user/list");
+  const createToken = async (formData, { setSubmitting }) => {
+    const res = await addToken(formData);
+    if (
+      signIn({
+        expiresIn: res.data['auth-state'].expiresIn,
+        token: res.data['auth-state'].token,
+        authState: res.data['auth-state']
+      })
+    ) {
+      // Only if you are using refreshToken feature
+      setSubmitting(false);
+      history.push('/user/list');
       // Redirect or do-something
-    }else {
+    } else {
       //Throw error
     }
-
-
-  }
-
-  const handleChange1 = (event) => {
-    setChecked1(event.target.checked);
   };
-
-
 
   const Form = (props) => {
     const {
@@ -74,12 +71,10 @@ const SignInComponent = () => {
     } = props;
     console.table(props);
 
-
     return (
       <form onSubmit={handleSubmit}>
-
         <div className="mb-4">
-         <TextField
+          <TextField
             variant="outlined"
             className="mb-4"
             name="email"
@@ -87,7 +82,7 @@ const SignInComponent = () => {
             onChange={handleChange}
             helperText={touched.email ? errors.email : ''}
             error={Boolean(errors.email)}
-              label="Email address"
+            label="Email address"
             fullWidth
             value={email}
             onChange={handleChange}
@@ -125,12 +120,7 @@ const SignInComponent = () => {
         <div className="d-flex justify-content-between align-items-center font-size-md">
           <FormControlLabel
             control={
-              <Checkbox
-                checked={checked1}
-                onChange={handleChange1}
-                value="checked1"
-                color="primary"
-              />
+              <Checkbox checked={checked1} value="checked1" color="primary" />
             }
             label="Remember me"
           />
@@ -144,7 +134,10 @@ const SignInComponent = () => {
           </div>
         </div>
         <div className="text-center py-4">
-          <Button  disabled={!isValid}  type="submit"  className="submit btn-second font-weight-bold w-50 my-2">
+          <Button
+            disabled={!isValid}
+            type="submit"
+            className="submit btn-second font-weight-bold w-50 my-2">
             Sign in
           </Button>
         </div>
@@ -184,8 +177,6 @@ const SignInComponent = () => {
                             initialValues={values}
                             onSubmit={createToken}
                           />
-
-
                         </div>
                       </Grid>
                     </Grid>
@@ -204,14 +195,11 @@ const SignInComponent = () => {
                                 Bamburgh React Admin Dashboard with Material-UI
                                 PRO
                               </h1>
-                              <p className="font-size-lg mb-0 opacity-8">
-
-                              </p>
+                              <p className="font-size-lg mb-0 opacity-8"></p>
                               <div className="divider mx-auto border-1 my-5 border-light opacity-2 rounded w-25" />
                               <div>
                                 <Button className="btn-success px-5 font-size-sm font-weight-bold btn-animated-icon text-uppercase rounded shadow-none py-3 hover-scale-sm hover-scale-lg">
-                                  <span className="btn-wrapper--label">
-                                   </span>
+                                  <span className="btn-wrapper--label"></span>
                                   <span className="btn-wrapper--icon">
                                     <FontAwesomeIcon
                                       icon={['fas', 'arrow-right']}
@@ -282,7 +270,6 @@ const SignInComponent = () => {
       </div>
     </>
   );
-}
+};
 
-export default SignInComponent
-
+export default SignInComponent;

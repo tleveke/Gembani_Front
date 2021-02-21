@@ -14,7 +14,6 @@ import {
 import { FormGroup } from '@material-ui/core';
 import { useMutation, useQuery } from 'jsonapi-react';
 import ClientForm from './ClientForm';
-import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import validationSchema from './validationSchema';
@@ -66,6 +65,15 @@ export default function LivePreviewExample(props) {
       return 'users';
     }
   };
+
+  const pageTitle = () => {
+    const { user } = props;
+    if (user) {
+      return 'Edit User';
+    } else {
+      return 'Create User';
+    }
+  };
   const [mutate, { isLoading, data, error, errors }] = useMutation(
     mutateParams()
   );
@@ -98,7 +106,6 @@ export default function LivePreviewExample(props) {
       handleChange,
       handleSubmit
     } = props;
-    debugger;
     const changeUserType = (event) => {
       let value = event.target.value;
       handleChange(event);
@@ -125,7 +132,7 @@ export default function LivePreviewExample(props) {
         <Grid container spacing={4}>
           <Grid item xs={12} lg={6}>
             <Card className="p-4 mb-4">
-              <div className="font-size-lg font-weight-bold">User</div>
+              <div className="font-size-lg font-weight-bold">{pageTitle()}</div>
               <Divider className="my-4" />
               <div>
                 <TextField

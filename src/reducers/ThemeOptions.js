@@ -141,7 +141,7 @@ export default function reducer(
     // Sidebar
 
     sidebarFixed: true,
-    sidebarFooter: true,
+    sidebarFooter: false,
     sidebarShadow: false,
     sidebarStyle: 'app-sidebar--dark',
     sidebarUserbox: false,
@@ -150,7 +150,7 @@ export default function reducer(
 
     // Header
 
-    headerFixed: true,
+    headerFixed: false,
     headerShadow: true,
     headerBgTransparent: true,
     headerSearchHover: false,

@@ -35,7 +35,6 @@ const LeftSidebar = (props) => {
           <Sidebar />
         </div>
         <div className="app-main">
-          <Header />
           <div className="app-content">
             <div className="app-content--inner">
               <div className="app-content--inner__wrapper">{children}</div>

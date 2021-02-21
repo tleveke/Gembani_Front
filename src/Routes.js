@@ -15,6 +15,8 @@ import { PrivateRoute } from 'react-auth-kit';
 import UserListPage from './pages/users/List';
 import UserCreatePage from './pages/users/Create';
 import UserEditPage from './pages/users/Edit';
+import InvoiceView from './pages/invoices/View';
+import InvoiceList from './pages/invoices/List';
 
 // Layout Blueprints
 
@@ -114,6 +116,17 @@ const Routes = () => {
               loginPath={'/sessions/new'}
               exact
               path={'/user/create'}></PrivateRoute>
+
+            <PrivateRoute
+              component={InvoiceView}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/invoice/view'}></PrivateRoute>
+            <PrivateRoute
+              component={InvoiceList}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/invoice/list'}></PrivateRoute>
           </Suspense>
         </AnimatePresence>
       </ThemeProvider>

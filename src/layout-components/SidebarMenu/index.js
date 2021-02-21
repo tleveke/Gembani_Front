@@ -142,7 +142,6 @@ const SidebarMenu = (props) => {
             <span>Navigation menu</span>
           </div>
           <ul>
-
             <li>
               <a
                 href="#/"
@@ -152,9 +151,7 @@ const SidebarMenu = (props) => {
                   <VerifiedUserTwoToneIcon />
                 </span>
                 <span className="sidebar-item-label">Dashboard</span>
-
               </a>
-
             </li>
             <li>
               <a
@@ -163,15 +160,9 @@ const SidebarMenu = (props) => {
                 className={clsx({ active: applicationOpen })}>
                 <span className="sidebar-icon">
                   <SecurityTwoToneIcon />
-
                 </span>
-                <span className="sidebar-item-label">
-                  Invoices
-
-                </span>
-
+                <span className="sidebar-item-label">Invoices</span>
               </a>
-
             </li>
           </ul>
 
@@ -185,12 +176,8 @@ const SidebarMenu = (props) => {
                   <CameraAltTwoToneIcon />
                 </span>
                 <span className="sidebar-item-label">Current Consumption</span>
-
               </a>
-
             </li>
-
-
           </ul>
           <div className="sidebar-header">
             <span>Admin</span>
@@ -212,18 +199,12 @@ const SidebarMenu = (props) => {
               <Collapse in={widgetsOpen}>
                 <ul>
                   <li>
-                    <NavLink
-                      onClick={toggleSidebarMobile}
-                      to="/WidgetsAccordions">
+                    <NavLink onClick={toggleSidebarMobile} to="/user/list">
                       List
                     </NavLink>
                   </li>
                   <li>
-                    <NavLink
-                      onClick={toggleSidebarMobile}
-                      to="/WidgetsCalendars">
-                      New
-                    </NavLink>
+                    <NavLink to="/user/create">New</NavLink>
                   </li>
                 </ul>
               </Collapse>
@@ -259,8 +240,6 @@ const SidebarMenu = (props) => {
                       List
                     </NavLink>
                   </li>
-
-
                 </ul>
               </Collapse>
             </li>
@@ -274,13 +253,9 @@ const SidebarMenu = (props) => {
                   <MoveToInboxTwoToneIcon />
                 </span>
                 Unbilled Events
-
               </NavLink>
             </li>
-
           </ul>
-
-
         </div>
       </PerfectScrollbar>
     </>

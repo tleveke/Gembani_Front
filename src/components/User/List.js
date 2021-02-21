@@ -7,12 +7,10 @@ import { Table, Card, CardContent, Button } from '@material-ui/core';
 
 import Pagination from '@material-ui/lab/Pagination';
 
-import { useQuery } from 'jsonapi-react';
-
 import avatar2 from '../../assets/images/avatars/avatar2.jpg';
 
-export default function () {
-  const { data, meta, error, isLoading, isFetching } = useQuery('users');
+export default function (props) {
+  const { data, error } = props;
 
   return (
     <>
@@ -20,7 +18,6 @@ export default function () {
         <div className="card-header">
           <div className="card-header--title">
             <small>Tables</small>
-            <b>This table card has custom content</b>
           </div>
           <div className="card-header--actions">
             <Link
@@ -48,62 +45,58 @@ export default function () {
                 </tr>
               </thead>
               <tbody>
-                {isLoading ? (
-                  <div>loading...</div>
-                ) : (
-                  data.map((user) => (
-                    <tr>
-                      <td>
-                        <div className="d-flex align-items-center">
-                          <div className="avatar-icon-wrapper mr-3">
-                            <div className="avatar-icon">
-                              <img alt="..." src={avatar2} />
-                            </div>
-                          </div>
-                          <div>
-                            <Link
-                              to={{
-                                pathname: `/user/edit/${user.id}`
-                              }}
-                              className="font-weight-bold text-black"
-                              title="...">
-                              {user.email}
-                            </Link>
-                            <span className="text-black-50 d-block">
-                              {user.firstName} {user.lastName}
-                            </span>
+                {data.map((user) => (
+                  <tr>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <div className="avatar-icon-wrapper mr-3">
+                          <div className="avatar-icon">
+                            <img alt="..." src={avatar2} />
                           </div>
                         </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="badge badge-warning h-auto py-0 px-3">
-                          {user.userType}
+                        <div>
+                          <Link
+                            to={{
+                              pathname: `/user/edit/${user.id}`
+                            }}
+                            className="font-weight-bold text-black"
+                            title="...">
+                            {user.email}
+                          </Link>
+                          <span className="text-black-50 d-block">
+                            {user.firstName} {user.lastName}
+                          </span>
                         </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="badge h-auto py-0 px-3">
-                          {user.admin ? 'Yes' : 'No'}
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="badge h-auto py-0 px-3">
-                          {user.hourlyRate}
-                        </div>
-                      </td>
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className="badge badge-warning h-auto py-0 px-3">
+                        {user.userType}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className="badge h-auto py-0 px-3">
+                        {user.admin ? 'Yes' : 'No'}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className="badge h-auto py-0 px-3">
+                        {user.hourlyRate}
+                      </div>
+                    </td>
 
-                      <td className="text-center">
-                        <div className="badge h-auto py-0 px-3">
-                          {user.clientDashboard ? 'Yes' : 'No'}
-                        </div>
-                      </td>
-                      <td className="text-center">
-                        <div className="badge h-auto py-0 px-3">
-                          {user.employeeDashboard ? 'Yes' : 'No'}
-                        </div>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                    <td className="text-center">
+                      <div className="badge h-auto py-0 px-3">
+                        {user.clientDashboard ? 'Yes' : 'No'}
+                      </div>
+                    </td>
+                    <td className="text-center">
+                      <div className="badge h-auto py-0 px-3">
+                        {user.employeeDashboard ? 'Yes' : 'No'}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
