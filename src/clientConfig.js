@@ -5,26 +5,40 @@ const schema = {
   users: {
     type: 'users',
     fields: {
-      first_name: 'string', // shorthand
-      last_name: 'string', // shorthand
+      firstName: 'string', // shorthand
+      lastName: 'string', // shorthand
       email: 'string', // shorthand
+      userType: 'string',
+      company: 'string',
+      employeeDashboard: {
+        resolve: (status) => {
+          return status == true;
+        }
+      },
+      clientDashboard: {
+        resolve: (status) => {
+          return status == true;
+        }
+      },
+      admin: {
+        resolve: (status) => {
+          return status == true;
+        }
+      },
+      hourlyRate: 'string'
     }
   },
-  tokens:{
+  tokens: {
     type: 'tokens',
     fields: {
       email: 'string', // shorthand
-      password: 'string', // shorthand
-
+      password: 'string' // shorthand
     }
-
   }
-}
+};
 
-export default  {
+export default {
   ssrMode: false,
   url: 'http://localhost:3000/api/',
   schema
-}
-
-
+};

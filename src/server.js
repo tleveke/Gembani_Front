@@ -1,21 +1,17 @@
 // src/server.js
-import { createServer, Model, JSONAPISerializer } from "miragejs"
-
+import { createServer, Model, JSONAPISerializer } from 'miragejs';
 
 const ApplicationSerializer = JSONAPISerializer.extend({
   keyForAttribute(attr, resource) {
-    return attr
+    return attr;
   }
+});
 
-
-})
-
-
-export function makeServer({ environment = "test" } = {}) {
+export function makeServer({ environment = 'test' } = {}) {
   let server = createServer({
     environment,
     serializers: {
-      application: ApplicationSerializer,
+      application: ApplicationSerializer
     },
     models: {
       user: Model,
@@ -24,34 +20,62 @@ export function makeServer({ environment = "test" } = {}) {
     },
 
     seeds(server) {
-      server.create("user", { first_name: "Nick", last_name: "Stock", email: "nick@gembani.com" })
-      server.create("user",{ first_name: "Tom", last_name: "Stock", email: "tom@gembani.com" })
-      server.create("company", { name: "Gembani" })
+      server.create('company', { name: 'Gembani' });
+      server.create('user', {
+        firstName: 'Tom',
+        lastName: 'Stock',
+        email: 'tom@gembani.comm',
+        userType: 'employee',
+        hourlyRate: '50',
+        admin: true,
+        clientDashboard: true,
+        employeeDashboard: true,
+        company: 1
+      });
 
+      server.create('user', {
+        firstName: 'Nick',
+        lastName: 'Stock',
+        email: 'nick@gembani.comm',
+        userType: 'employee',
+        hourlyRate: '50',
+        clientDashboard: true,
+        company: 1
+      });
+      server.create('user', {
+        firstName: 'Brady',
+        lastName: 'Simmons',
+        email: 'brady@test.comm',
+        userType: 'client',
+        clientDashboard: true,
+        company: 1
+      });
     },
 
     routes() {
-      this.namespace = "api"
+      this.namespace = 'api';
 
-      this.get("/users", (schema) => {
-        return schema.users.all()
-      })
-      this.get("/companies", (schema) => {
-        return schema.companies.all()
-      })
+      this.get('/users', (schema) => {
+        return schema.users.all();
+      });
+      this.get('/users/:id');
+      this.get('/companies', (schema) => {
+        return schema.companies.all();
+      });
 
       this.post('/users');
       this.patch('/users/:id');
-      this.post('/tokens',  (schema) => {
-        const today = new Date()
-        const tomorrow = new Date(today)
-        tomorrow.setDate(tomorrow.getDate() + 1)
-        return schema.tokens.create({authState: {token: "HelloWorld", expiresIn: 3600 }})
-
-      })
+      this.post('/tokens', (schema) => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return schema.tokens.create({
+          authState: { token: 'HelloWorld', expiresIn: 3600 }
+        });
+      });
       this.post('/companies');
-    },
-  })
+    }
+  });
 
-  return server
+  return server;
 }

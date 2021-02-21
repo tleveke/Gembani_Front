@@ -1,13 +1,21 @@
 import React, { lazy, Suspense, useState, useEffect } from 'react';
-import { Switch, Route, Redirect, useLocation, BrowserRouter } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  Redirect,
+  useLocation,
+  BrowserRouter
+} from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ClimbingBoxLoader } from 'react-spinners';
 import { ThemeProvider } from '@material-ui/styles';
-import Login from './components/Login'
+import Login from './components/Login';
 import MuiTheme from './theme';
-import {PrivateRoute} from 'react-auth-kit'
-import UserListPage from './pages/users/list'
-import UserCreatePage from './pages/users/create'
+import { PrivateRoute } from 'react-auth-kit';
+import UserListPage from './pages/users/List';
+import UserCreatePage from './pages/users/Create';
+import UserEditPage from './pages/users/Edit';
+
 // Layout Blueprints
 
 import {
@@ -21,7 +29,6 @@ import { ApiProvider } from 'jsonapi-react';
 const FormsControls = lazy(() => import('./example-pages/FormsControls'));
 
 const Routes = () => {
-
   const pageVariants = {
     initial: {
       opacity: 0
@@ -81,39 +88,36 @@ const Routes = () => {
 
   return (
     <BrowserRouter>
-
-  <ThemeProvider theme={MuiTheme}>
-      <AnimatePresence>
-        <Suspense fallback={<SuspenseLoading />}>
-
-            <Route
-              path={[
-                '/sessions/new',
-              ]} >
+      <ThemeProvider theme={MuiTheme}>
+        <AnimatePresence>
+          <Suspense fallback={<SuspenseLoading />}>
+            <Route path={['/sessions/new']}>
               <MinimalLayout>
-                 <Login/>
-
+                <Login />
               </MinimalLayout>
             </Route>
 
+            <PrivateRoute
+              component={UserEditPage}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/user/edit/:id'}></PrivateRoute>
 
             <PrivateRoute
               component={UserListPage}
-              loginPath={'/sessions/new'} exact
-              path={'/user/list'} >
-            </PrivateRoute>
+              loginPath={'/sessions/new'}
+              exact
+              path={'/user/list'}></PrivateRoute>
 
-          <PrivateRoute
-            component={UserCreatePage}
-            loginPath={'/sessions/new'} exact
-            path={'/user/create'} >
-          </PrivateRoute>
-
-</Suspense>
-      </AnimatePresence>
-    </ThemeProvider>
+            <PrivateRoute
+              component={UserCreatePage}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/user/create'}></PrivateRoute>
+          </Suspense>
+        </AnimatePresence>
+      </ThemeProvider>
     </BrowserRouter>
-
   );
 };
 

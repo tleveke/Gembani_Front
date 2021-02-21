@@ -13,10 +13,11 @@ import {
 
 import { FormGroup } from '@material-ui/core';
 import { useMutation, useQuery } from 'jsonapi-react';
-import ClientForm from './client_form';
+import ClientForm from './ClientForm';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
+import validationSchema from './validationSchema';
 
 const userTypes = [
   {
@@ -30,28 +31,7 @@ const userTypes = [
 ];
 
 export default function LivePreviewExample(props) {
-  const validationSchema = Yup.object({
-    userType: Yup.string('Enter the user type').required(
-      'A user is either a client or an employee'
-    ),
-    email: Yup.string('Enter your email')
-      .email('Enter a valid email')
-      .required('email is required'),
-
-    hourlyRate: Yup.string().when('userType', {
-      is: 'employee',
-      then: Yup.string().required(),
-      otherwise: Yup.string()
-    }),
-    company: Yup.string().when('userType', {
-      is: 'client',
-      then: Yup.string().required(),
-      otherwise: Yup.string()
-    })
-  });
-
   const { user } = props;
-
   const [state, setState] = useState({
     employeeSection: user && user.userType == 'employee',
     clientSection: user && user.userType == 'client'
@@ -118,6 +98,7 @@ export default function LivePreviewExample(props) {
       handleChange,
       handleSubmit
     } = props;
+    debugger;
     const changeUserType = (event) => {
       let value = event.target.value;
       handleChange(event);
@@ -202,6 +183,7 @@ export default function LivePreviewExample(props) {
               <ClientForm
                 companyQuery={companyQuery}
                 company={company}
+                clientDashboard={clientDashboard}
                 {...props}
               />
             )}
@@ -220,6 +202,7 @@ export default function LivePreviewExample(props) {
                       <Checkbox
                         className="employeeDashboard"
                         onChange={handleChange}
+                        checked={employeeDashboard}
                         value={employeeDashboard}
                       />
                     }
@@ -230,6 +213,7 @@ export default function LivePreviewExample(props) {
                     control={
                       <Checkbox
                         className="admin"
+                        checked={admin}
                         onChange={handleChange}
                         value={admin}
                       />

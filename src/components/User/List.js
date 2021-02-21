@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Card, CardContent, Button } from '@material-ui/core';
 
@@ -7,11 +9,9 @@ import Pagination from '@material-ui/lab/Pagination';
 
 import { useQuery } from 'jsonapi-react';
 
-import avatar1 from '../../assets/images/avatars/avatar1.jpg';
 import avatar2 from '../../assets/images/avatars/avatar2.jpg';
-import avatar3 from '../../assets/images/avatars/avatar3.jpg';
 
-export default function LivePreviewExample() {
+export default function () {
   const { data, meta, error, isLoading, isFetching } = useQuery('users');
 
   return (
@@ -23,12 +23,15 @@ export default function LivePreviewExample() {
             <b>This table card has custom content</b>
           </div>
           <div className="card-header--actions">
-            <Button size="small" className="btn-primary d-40 btn-icon p-0">
+            <Link
+              to={'/user/create'}
+              size="small"
+              className="btn-primary d-40 btn-icon p-0">
               <FontAwesomeIcon
                 icon={['fas', 'plus']}
                 className="font-size-lg"
               />
-            </Button>
+            </Link>
           </div>
         </div>
         <CardContent className="p-0">
@@ -37,8 +40,11 @@ export default function LivePreviewExample() {
               <thead className="thead-light">
                 <tr>
                   <th style={{ width: '40%' }}>Users</th>
-                  <th className="text-center">Status</th>
-                  <th className="text-center">Actions</th>
+                  <th className="text-center">Type</th>
+                  <th className="text-center">Admin</th>
+                  <th className="text-center">Hourly Rate</th>
+                  <th className="text-center">Client Dashboard</th>
+                  <th className="text-center">Employee Dashboard</th>
                 </tr>
               </thead>
               <tbody>
@@ -55,34 +61,44 @@ export default function LivePreviewExample() {
                             </div>
                           </div>
                           <div>
-                            <a
-                              href="#/"
-                              onClick={(e) => e.preventDefault()}
+                            <Link
+                              to={{
+                                pathname: `/user/edit/${user.id}`
+                              }}
                               className="font-weight-bold text-black"
                               title="...">
                               {user.email}
-                            </a>
+                            </Link>
                             <span className="text-black-50 d-block">
-                              UI Engineer, Apple Inc.
+                              {user.firstName} {user.lastName}
                             </span>
                           </div>
                         </div>
                       </td>
                       <td className="text-center">
                         <div className="badge badge-warning h-auto py-0 px-3">
-                          Pending
+                          {user.userType}
                         </div>
                       </td>
                       <td className="text-center">
-                        <div>
-                          <Button
-                            size="small"
-                            className="btn-primary btn-icon d-40 p-0 btn-animated-icon-sm">
-                            <FontAwesomeIcon
-                              icon={['fas', 'ellipsis-h']}
-                              className="font-size-lg"
-                            />
-                          </Button>
+                        <div className="badge h-auto py-0 px-3">
+                          {user.admin ? 'Yes' : 'No'}
+                        </div>
+                      </td>
+                      <td className="text-center">
+                        <div className="badge h-auto py-0 px-3">
+                          {user.hourlyRate}
+                        </div>
+                      </td>
+
+                      <td className="text-center">
+                        <div className="badge h-auto py-0 px-3">
+                          {user.clientDashboard ? 'Yes' : 'No'}
+                        </div>
+                      </td>
+                      <td className="text-center">
+                        <div className="badge h-auto py-0 px-3">
+                          {user.employeeDashboard ? 'Yes' : 'No'}
                         </div>
                       </td>
                     </tr>
