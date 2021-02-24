@@ -30,8 +30,6 @@ import {
 } from './layout-blueprints';
 import { ApiProvider } from 'jsonapi-react';
 
-const FormsControls = lazy(() => import('./example-pages/FormsControls'));
-
 const Routes = () => {
   const pageVariants = {
     initial: {

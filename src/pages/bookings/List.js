@@ -9,8 +9,6 @@ import {
   MuiPickersUtilsProvider
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import FormsDatepicker1 from '../../example-components/FormsDatepicker/FormsDatepicker1';
-import FormsDatepicker2 from '../../example-components/FormsDatepicker/FormsDatepicker2';
 import { ExampleWrapperSeamless } from '../../layout-components';
 
 export default function LivePreviewExample() {

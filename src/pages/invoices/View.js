@@ -2,7 +2,6 @@ import React from 'react';
 
 import { PageTitle } from '../../layout-components';
 
-import PageInvoice1 from '../../example-components/PageInvoice/PageInvoice1';
 import { Button, Card, CardContent, Grid, Table } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LeftSidebar } from '../../layout-blueprints';
