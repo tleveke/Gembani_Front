@@ -143,40 +143,37 @@ const SidebarMenu = (props) => {
           </div>
           <ul>
             <li>
-              <a
-                href="#/"
-                onClick={toggleDashboard}
+              <NavLink
+                to={'/booking/list'}
                 className={clsx({ active: dashboardOpen })}>
                 <span className="sidebar-icon">
                   <VerifiedUserTwoToneIcon />
                 </span>
-                <span className="sidebar-item-label">Dashboard</span>
-              </a>
+                <span className="sidebar-item-label">Bookings</span>
+              </NavLink>
             </li>
             <li>
-              <a
-                href="#/"
-                onClick={toggleApplication}
+              <NavLink
+                to={'/invoice/list'}
                 className={clsx({ active: applicationOpen })}>
                 <span className="sidebar-icon">
                   <SecurityTwoToneIcon />
                 </span>
                 <span className="sidebar-item-label">Invoices</span>
-              </a>
+              </NavLink>
             </li>
           </ul>
 
           <ul>
             <li>
-              <a
-                href="#/"
-                onClick={toggleElements}
+              <NavLink
+                to={'/calendar'}
                 className={clsx({ active: elementsOpen })}>
                 <span className="sidebar-icon">
                   <CameraAltTwoToneIcon />
                 </span>
-                <span className="sidebar-item-label">Current Consumption</span>
-              </a>
+                <span className="sidebar-item-label">Calendar</span>
+              </NavLink>
             </li>
           </ul>
           <div className="sidebar-header">
@@ -184,30 +181,13 @@ const SidebarMenu = (props) => {
           </div>
           <ul>
             <li>
-              <a
-                href="#/"
-                onClick={toggleWidgets}
-                className={clsx({ active: widgetsOpen })}>
+              <NavLink to="/user/list">
                 <span className="sidebar-icon">
                   <BusinessCenterTwoToneIcon />
                 </span>
                 <span className="sidebar-item-label">Users</span>
-                <span className="sidebar-icon-indicator">
-                  <ChevronRightTwoToneIcon />
-                </span>
-              </a>
-              <Collapse in={widgetsOpen}>
-                <ul>
-                  <li>
-                    <NavLink onClick={toggleSidebarMobile} to="/user/list">
-                      List
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/user/create">New</NavLink>
-                  </li>
-                </ul>
-              </Collapse>
+                <span className="sidebar-icon-indicator"></span>
+              </NavLink>
             </li>
             <li>
               <a
@@ -242,18 +222,6 @@ const SidebarMenu = (props) => {
                   </li>
                 </ul>
               </Collapse>
-            </li>
-            <li>
-              <NavLink
-                activeClassName="active"
-                onClick={toggleSidebarMobile}
-                className="nav-link-simple"
-                to="/Tables">
-                <span className="sidebar-icon">
-                  <MoveToInboxTwoToneIcon />
-                </span>
-                Unbilled Events
-              </NavLink>
             </li>
           </ul>
         </div>

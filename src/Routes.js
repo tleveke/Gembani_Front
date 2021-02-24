@@ -17,6 +17,8 @@ import UserCreatePage from './pages/users/Create';
 import UserEditPage from './pages/users/Edit';
 import InvoiceView from './pages/invoices/View';
 import InvoiceList from './pages/invoices/List';
+import BookingList from './pages/bookings/List';
+import CalendarPage from './pages/events/Calendar';
 
 // Layout Blueprints
 
@@ -100,6 +102,12 @@ const Routes = () => {
             </Route>
 
             <PrivateRoute
+              component={CalendarPage}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/calendar'}></PrivateRoute>
+
+            <PrivateRoute
               component={UserEditPage}
               loginPath={'/sessions/new'}
               exact
@@ -110,6 +118,12 @@ const Routes = () => {
               loginPath={'/sessions/new'}
               exact
               path={'/user/list'}></PrivateRoute>
+
+            <PrivateRoute
+              component={BookingList}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/booking/list'}></PrivateRoute>
 
             <PrivateRoute
               component={UserCreatePage}

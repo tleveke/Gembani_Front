@@ -13,7 +13,6 @@ export default function LivePreviewExample(props) {
     handleChange,
     clientDashboard
   } = props;
-  debugger;
   return (
     <Card className="p-4 mb-4">
       <div className="font-size-lg font-weight-bold">Client Section</div>

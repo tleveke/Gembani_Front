@@ -2,6 +2,14 @@ import { ApiClient } from 'jsonapi-react';
 import { useAuthHeader } from 'react-auth-kit';
 
 const schema = {
+  events: {
+    types: 'events',
+    fields: {
+      start: 'date',
+      end: 'date',
+      title: 'string'
+    }
+  },
   users: {
     type: 'users',
     fields: {

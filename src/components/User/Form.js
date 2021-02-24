@@ -30,7 +30,7 @@ const userTypes = [
 ];
 
 export default function LivePreviewExample(props) {
-  const { user } = props;
+  const { user, onCancel } = props;
   const [state, setState] = useState({
     employeeSection: user && user.userType == 'employee',
     clientSection: user && user.userType == 'client'
@@ -68,7 +68,7 @@ export default function LivePreviewExample(props) {
 
   const pageTitle = () => {
     const { user } = props;
-    if (user) {
+    if (user && user.id) {
       return 'Edit User';
     } else {
       return 'Create User';
@@ -130,7 +130,7 @@ export default function LivePreviewExample(props) {
     return (
       <form onSubmit={handleSubmit}>
         <Grid container spacing={4}>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={12} lg={12}>
             <Card className="p-4 mb-4">
               <div className="font-size-lg font-weight-bold">{pageTitle()}</div>
               <Divider className="my-4" />
@@ -242,12 +242,21 @@ export default function LivePreviewExample(props) {
                 </FormGroup>
               </Card>
             )}
-            <Button
-              type="submit"
-              disabled={!isValid}
-              className="submit btn-second font-weight-bold w-50 my-2">
-              Save
-            </Button>
+            <Card class={'p-4 mb-4'}>
+              <Button
+                type="submit"
+                disabled={!isValid}
+                className=" btn-primary font-weight-bold w-50 my-2">
+                Save
+              </Button>
+              {onCancel && (
+                <Button
+                  onClick={onCancel}
+                  className=" btn-danger font-weight-bold w-50 my-2">
+                  Cancel
+                </Button>
+              )}
+            </Card>
           </Grid>
         </Grid>
       </form>

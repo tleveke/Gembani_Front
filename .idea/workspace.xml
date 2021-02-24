@@ -6,19 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="0eee0337-7f35-4dcd-baa3-16af154923f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.nyc_output/out.json" beforeDir="false" afterPath="$PROJECT_DIR$/.nyc_output/out.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cypress/component/User.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/component/User.spec.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clientConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/clientConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/client_form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/ClientForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/company_text_field.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/CompanyTextField.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserList/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/ClientForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/ClientForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/example-components/WidgetsModals/Modals2/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/example-components/WidgetsModals/Modals2/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/example-components/WidgetsTreeView/TreeView1/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/example-components/WidgetsTreeView/TreeView1/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layout-components/PageTitle/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout-components/PageTitle/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/layout-components/SidebarMenu/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layout-components/SidebarMenu/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/create.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/list.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/List.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/invoices/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/invoices/List.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/users" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -50,11 +52,12 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/pages/users" />
       <recent name="$PROJECT_DIR$/cypress/integration" />
     </key>
@@ -110,7 +113,7 @@
       <workItem from="1613722327995" duration="250000" />
       <workItem from="1613729911168" duration="87000" />
       <workItem from="1613730299126" duration="32796000" />
-      <workItem from="1613810193299" duration="69796000" />
+      <workItem from="1613810193299" duration="120351000" />
     </task>
     <servers />
   </component>
@@ -134,29 +137,25 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/layout-components/SidebarMenu/index.js</url>
-          <line>205</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/layout-components/SidebarMenu/index.js</url>
           <line>137</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Routes.js</url>
-          <line>46</line>
+          <line>50</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/Login/index.js</url>
-          <line>59</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/Routes.js</url>
-          <line>18</line>
+          <line>22</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/Calendar/index.js</url>
+          <line>124</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

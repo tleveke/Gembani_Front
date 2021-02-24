@@ -197,7 +197,7 @@ export default function LivePreviewExample() {
                 </div>
               </div>
             </Grid>
-            <Grid item xl={7}>
+            <Grid item xl={6}>
               <div className="mt-4 mt-xl-0">
                 <List className="nav-tabs nav-tabs-primary tabs-animated tabs-animated-line justify-content-center d-flex">
                   <ListItem

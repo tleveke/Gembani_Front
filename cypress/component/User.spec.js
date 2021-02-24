@@ -19,7 +19,7 @@ describe('User', () => {
     server.shutdown();
   });
 
-  xdescribe('create', function () {
+  describe('create', function () {
     it('Create employee user', () => {
       const client = new ApiClient(clientConfig);
       const spyObj = {

@@ -46,9 +46,9 @@ const SignInComponent = () => {
     const res = await addToken(formData);
     if (
       signIn({
-        expiresIn: res.data['auth-state'].expiresIn,
-        token: res.data['auth-state'].token,
-        authState: res.data['auth-state']
+        expiresIn: res.data['authState'].expiresIn,
+        token: res.data['authState'].token,
+        authState: res.data['authState']
       })
     ) {
       // Only if you are using refreshToken feature
@@ -76,9 +76,8 @@ const SignInComponent = () => {
         <div className="mb-4">
           <TextField
             variant="outlined"
-            className="mb-4"
+            className="mb-4 email"
             name="email"
-            class="email"
             onChange={handleChange}
             helperText={touched.email ? errors.email : ''}
             error={Boolean(errors.email)}
@@ -100,7 +99,7 @@ const SignInComponent = () => {
             variant="outlined"
             className="mb-4"
             name="password"
-            class="password"
+            className="password"
             helperText={touched.password ? errors.password : ''}
             error={Boolean(errors.password)}
             label="Password"
