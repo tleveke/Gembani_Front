@@ -32,9 +32,7 @@ export function makeServer({ environment = 'test' } = {}) {
       attendee: Model.extend({
         event: belongsTo()
       }),
-      invite: Model.extend({
-        user: belongsTo()
-      })
+      email: Model
     },
     factories: {
       attendee: Factory.extend({
@@ -80,6 +78,15 @@ export function makeServer({ environment = 'test' } = {}) {
       })
     },
     seeds(server) {
+      server.create('email', {
+        type: 'client',
+        content: 'Voici ce mail client !'
+      });
+      server.create('email', {
+        type: 'employee',
+        content: 'Voici ce mail employé !'
+      });
+
       server.create('company', { name: 'Gembani' });
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
@@ -127,7 +134,14 @@ export function makeServer({ environment = 'test' } = {}) {
       });
 
       this.post('/users');
-      this.patch('/users/:id');
+      this.get('/emails/:type', (schema, request) => {
+        console.log(schema.emails.all());
+        return schema.emails.findBy({ type: request.params.type });
+      });
+      this.patch('/emails/:type', (schema, request) => {
+        let email = schema.emails.findBy({ type: request.params.type });
+        return email.update(request.requestBody);
+      });
       this.post('/tokens', (schema) => {
         const today = new Date();
         const tomorrow = new Date(today);
