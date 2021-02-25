@@ -43,6 +43,10 @@ const schema = {
       password: 'string' // shorthand
     }
   },
+  /**
+   * TODO
+   * Schema que nous avons créé, peut-être le soucis vient d'ici ?
+   */
   companies: {
     type: 'companies',
     fields: {

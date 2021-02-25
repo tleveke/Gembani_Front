@@ -180,12 +180,20 @@ export function makeServer({ environment = 'test' } = {}) {
           authState: { token: 'HelloWorld', expiresIn: 3600 }
         });
       });
-      this.post('/companies');
 
       this.get('/bookings', (schema) => {
         return schema.bookings.all();
       });
-      this.post('/bookings');
+      
+      /**
+       * TODO
+       * Ici, la fonction à correctement fonctionnée à moment mais, pour une raison inconnue, elle ne fonctionne plus
+       */
+      this.patch('/companies/:id', (schema, request) => {        
+        const att = JSON.parse(request.requestBody)
+        console.log(att)
+        return schema.db.companies.update(request.params.id, att)
+      });
     }
   });
 

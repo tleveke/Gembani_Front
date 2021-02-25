@@ -9,13 +9,16 @@ import {
 import DateFnsUtils from '@date-io/date-fns'
 import { ExampleWrapperSeamless } from '../../layout-components'
 import { useMutation, useQuery } from 'jsonapi-react'
-import { company } from 'faker'
 
 export default function LivePreviewExample() {
     const [companies, setCompanies] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const { data, isLoading: isDataLoading } = useQuery(['companies', { include: ['bookings.employee'] }])
-    const [mutate, { isLoading: isLoadingMutate }] = useMutation('companies')
+    /**
+     * TODO
+     * Ici nous avons essaye des "companies/1" ou juste "companies"
+     */
+    const [mutate, { isLoading: isLoadingMutate }] = useMutation('companies/1')
 
     useEffect(
         () => {
@@ -36,7 +39,7 @@ export default function LivePreviewExample() {
     )
 
     const onSave = useCallback(
-        async () => await mutate(companies),
+        async () => await mutate(companies[0]),
         [companies]
     )
 
