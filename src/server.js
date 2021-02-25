@@ -31,7 +31,8 @@ export function makeServer({ environment = 'test' } = {}) {
       }),
       attendee: Model.extend({
         event: belongsTo()
-      })
+      }),
+      invoice: Model
     },
     factories: {
       attendee: Factory.extend({
@@ -107,6 +108,14 @@ export function makeServer({ environment = 'test' } = {}) {
         clientDashboard: true,
         company: 1
       });
+
+      server.create('invoice', {
+        name: 'Coucou'
+      });
+
+      server.create('invoice', {
+        name: 'Toto'
+      });
     },
 
     routes() {
@@ -114,6 +123,11 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.get('/users', (schema) => {
         return schema.users.all();
+      });
+
+      this.get('/invoices', (schema) => {
+        console.log(schema);
+        return schema.invoices.all();
       });
 
       this.get('/events');

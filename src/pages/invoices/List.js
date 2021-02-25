@@ -5,8 +5,11 @@ import { Table, Card, Button } from '@material-ui/core';
 import { LeftSidebar } from '../../layout-blueprints';
 import { PageTitle } from '../../layout-components';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'jsonapi-react';
 
 export default function LivePreviewExample() {
+  const { data } = useQuery('invoices');
+  console.log(data);
   return (
     <LeftSidebar>
       <PageTitle
