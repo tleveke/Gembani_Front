@@ -11,13 +11,11 @@ import { amount } from '../../utils/amount';
 
 export default function PageInvoice() {
   let { id } = useParams();
-  const { data } = useQuery(['invoices', id]);
-  const { invoiceLines } = useQuery(['invoices', id, 'invoiceLines']);
+  const { data } = useQuery(['invoices', id, { include: ['invoiceLines'] }]);
 
   console.log('View', data);
-  console.log(invoiceLines);
-
-  const amountCalculated = amount(data);
+  debugger;
+  //const amountCalculated = amount(data);
   return (
     <>
       <LeftSidebar>
@@ -157,8 +155,8 @@ export default function PageInvoice() {
                     <th className="tx-right">Amount</th>
                   </tr>
                 </thead>
-                {/* <tbody>
-                  {data?.services.map((service) => (
+                <tbody>
+                  {data?.invoiceLines?.map((service) => (
                     <tr>
                       <td className="tx-nowrap">{service?.type}</td>
                       <td className="d-none d-sm-table-cell text-black-50">
@@ -171,7 +169,7 @@ export default function PageInvoice() {
                       </td>
                     </tr>
                   ))}
-                </tbody> */}
+                </tbody>
               </Table>
             </div>
             <div className="divider mb-4" />
@@ -193,19 +191,19 @@ export default function PageInvoice() {
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Sub-Total</span>
                     <span className="pl-4">
-                      ${amountCalculated.result.toFixed(2)}
+                      {/*${amountCalculated.result.toFixed(2)}*/}
                     </span>
                   </li>
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Tax {data?.tax * 100}%</span>
                     <span className="pl-4">
-                      ${amountCalculated.tax.toFixed(2)}
+                      {/*${amountCalculated.tax.toFixed(2)}*/}
                     </span>
                   </li>
                   <li className="d-flex justify-content-between font-weight-bold pt-3 pb-2 font-size-lg">
                     <span className="pr-4">Total Due</span>
                     <span className="pl-4">
-                      ${amountCalculated.total.toFixed(2)}
+                      {/*${amountCalculated.total.toFixed(2)}*/}
                     </span>
                   </li>
                 </ul>
