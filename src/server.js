@@ -112,8 +112,16 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api';
 
-      this.get('/users', (schema) => {
-        return schema.users.all();
+      this.get('/users', (schema, req) => {
+        const users = schema.users.all();
+        if (req.queryParams) {
+          console.log(users);
+          const userFiltered = users.models.filter(
+            (model) => model.attrs.userType === 'client'
+          );
+          users.models = userFiltered;
+        }
+        return users;
       });
 
       this.get('/events');
@@ -138,7 +146,10 @@ export function makeServer({ environment = 'test' } = {}) {
           authState: { token: 'HelloWorld', expiresIn: 3600 }
         });
       });
-      this.post('/companies');
+      this.post('/companies', (schema, req) => {
+        const { data } = JSON.parse(req.requestBody);
+        return schema.companies; //TODO
+      });
     }
   });
 

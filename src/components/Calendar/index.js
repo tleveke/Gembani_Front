@@ -7,6 +7,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import SimpleModal from './SimpleModal';
+import { useMutation, useQuery } from 'jsonapi-react';
 import Dialog from './Dialog';
 import {
   Button,
@@ -45,7 +46,12 @@ export default function LivePreviewExample(props) {
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(false);
   const [newUserEmail, setNewUserEmail] = useState('');
   const [simpleModal, setSimpleModal] = useState(false);
-
+  const userQuery = useQuery([
+    'users',
+    {
+      userType: 'client'
+    }
+  ]);
   const [event, setEvent] = useState({});
 
   const toggleModal = () => {
@@ -208,6 +214,7 @@ export default function LivePreviewExample(props) {
                             Assign
                           </Button>
                           <SimpleModal
+                            clients={userQuery}
                             open={simpleModal}
                             onClose={toggleModal}
                           />

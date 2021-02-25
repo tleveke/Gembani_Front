@@ -12,7 +12,6 @@ import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-import { useMutation, useQuery } from 'jsonapi-react';
 import { blue } from '@material-ui/core/colors';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -20,19 +19,23 @@ const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
     color: blue[600]
+  },
+  buttonAdd: {
+    color: 'blueviolet'
   }
 });
 
 const SimpleModal = (props) => {
   const classes = useStyles();
-  const { onClose, open } = props;
+  const { onClose, open, clients } = props;
+
+  const handleClose = () => {
+    onClose();
+  };
 
   const handleListItemClick = (value) => {
     onClose(value);
   };
-
-  const userQuery = useQuery('users');
-  console.log(userQuery);
   return (
     <Dialog
       onClose={handleClose}
@@ -40,37 +43,26 @@ const SimpleModal = (props) => {
       open={open}>
       <DialogTitle id="simple-dialog-title">Clients Accounts</DialogTitle>
       <List>
-        {emails.map((email) => (
-          <ListItem
-            button
-            onClick={() => handleListItemClick(email)}
-            key={email}>
+        {clients.data.map((client) => (
+          <ListItem>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={email} />
+            <ListItemText primary={client.email} />
+            <Button onClick="AddIntoEvent" classname="btn btn-primary mx-4">
+              <strong className={classes.buttonAdd}>+</strong>
+            </Button>
           </ListItem>
         ))}
-
-        <ListItem
-          autoFocus
-          button
-          onClick={() => handleListItemClick('addAccount')}>
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Add account" />
-        </ListItem>
       </List>
     </Dialog>
   );
 };
 
 SimpleModal.propTypes = {
+  clients: PropTypes.arrayOf(PropTypes.object).isRequired,
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired
 };
