@@ -179,7 +179,7 @@ export function makeServer({ environment = 'test' } = {}) {
             unitPrice: 222
           }
         ],
-        tax: 5,
+        tax: 0.05,
         paid: true
       });
     },
@@ -192,7 +192,6 @@ export function makeServer({ environment = 'test' } = {}) {
       });
 
       this.get('/invoices', (schema) => {
-        console.log(schema);
         return schema.invoices.all();
       });
       this.get('/invoices/:id');

@@ -133,7 +133,7 @@ const Routes = () => {
               component={InvoiceView}
               loginPath={'/sessions/new'}
               exact
-              path={'/invoice/view'}></PrivateRoute>
+              path={'/invoice/view/:id'}></PrivateRoute>
             <PrivateRoute
               component={InvoiceList}
               loginPath={'/sessions/new'}

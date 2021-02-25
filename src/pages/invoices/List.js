@@ -12,12 +12,13 @@ export default function LivePreviewExample() {
 
   const amount = (invoice) => {
     let result = 0;
-    invoice && invoice.services.forEach(el => {
-      let price = el.unitPrice*el.quantity
-      result +=price
-    });
-    return result
-  }
+    invoice &&
+      invoice.services.forEach((el) => {
+        let price = el.unitPrice * el.quantity;
+        result += price;
+      });
+    return result;
+  };
 
   return (
     <LeftSidebar>
@@ -60,10 +61,13 @@ export default function LivePreviewExample() {
                       <span>{amount(invoice)}</span>
                     </td>
                     <td className="text-warning">
-                      <span>{ invoice.paid ? 'YES' : 'NO'}</span>                      
+                      <span>{invoice.paid ? 'YES' : 'NO'}</span>
                     </td>
                     <td className="text-right">
-                      <Link to={'/invoice/view'}>
+                      <Link
+                        to={{
+                          pathname: `/invoice/view/${invoice.id}`
+                        }}>
                         <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
                           <FontAwesomeIcon
                             icon={['fas', 'search']}
