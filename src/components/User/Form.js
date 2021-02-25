@@ -191,6 +191,7 @@ export default function LivePreviewExample(props) {
                   />
                 ))}
                 <IconButton
+                  disabled={!emailsField[0] || Boolean(errors.emails)}
                   onClick={() => seEmailsField([...emailsField, ''])}
                   aria-label="Add">
                   <AddIcon />
