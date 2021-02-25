@@ -68,7 +68,7 @@ const EmailForm = (props) => {
           <Card className={'p-4 mb-4'}>
             <Button
               type="submit"
-              className=" btn-primary font-weight-bold w-50 my-2">
+              className=" btn-primary font-weight-bold w-50 my-2 saveButton">
               Save
             </Button>
           </Card>
