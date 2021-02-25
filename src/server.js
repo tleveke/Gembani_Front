@@ -168,15 +168,15 @@ export function makeServer({ environment = 'test' } = {}) {
             type: 'Design',
             description:
               'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 2,
-            unitPrice: 150
+            quantity: 1,
+            unitPrice: 168
           },
           {
             type: 'Software development',
             description:
               'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 3,
-            unitPrice: 270
+            quantity: 4,
+            unitPrice: 222
           }
         ],
         tax: 5,
@@ -195,6 +195,7 @@ export function makeServer({ environment = 'test' } = {}) {
         console.log(schema);
         return schema.invoices.all();
       });
+      this.get('/invoices/:id');
 
       this.get('/events');
       this.get('/events/:id');

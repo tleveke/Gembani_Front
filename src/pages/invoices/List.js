@@ -9,12 +9,21 @@ import { useQuery } from 'jsonapi-react';
 
 export default function LivePreviewExample() {
   const { data } = useQuery('invoices');
-  console.log(data);
+
+  const amount = (invoice) => {
+    let result = 0;
+    invoice && invoice.services.forEach(el => {
+      let price = el.unitPrice*el.quantity
+      result +=price
+    });
+    return result
+  }
+
   return (
     <LeftSidebar>
       <PageTitle
-        titleHeading="Invoice List"
-        titleDescription="This pages contains an example invoice design."
+        titleHeading="Invoices List"
+        titleDescription="This pages contains an example invoices design."
       />
       <Card className="p-4 shadow-xxl mb-spacing-6-x2">
         <div className="table-responsive-md">
@@ -34,92 +43,39 @@ export default function LivePreviewExample() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-              <tr className="divider"></tr>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-              <tr className="divider"></tr>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
+              {data?.map((invoice) => (
+                <>
+                  <tr key={invoice}>
+                    <td className="text-center text-black-50">
+                      <span>{invoice.numberID}</span>
+                    </td>
+                    <td>
+                      <b>{invoice.dueDate}</b>
+                    </td>
+                    <td>
+                      <span>{invoice.billedTo.company}</span>
+                    </td>
+                    <td className="font-size-lg font-weight-bold">
+                      <small>$</small>
+                      <span>{amount(invoice)}</span>
+                    </td>
+                    <td className="text-warning">
+                      <span>{ invoice.paid ? 'YES' : 'NO'}</span>                      
+                    </td>
+                    <td className="text-right">
+                      <Link to={'/invoice/view'}>
+                        <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
+                          <FontAwesomeIcon
+                            icon={['fas', 'search']}
+                            className="font-size-sm"
+                          />
+                        </Button>
+                      </Link>
+                    </td>
+                  </tr>
+                  <tr className="divider"></tr>
+                </>
+              ))}
             </tbody>
           </Table>
         </div>
