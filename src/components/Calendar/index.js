@@ -6,6 +6,7 @@ import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
+import SimpleModal from './SimpleModal';
 import Dialog from './Dialog';
 import {
   Button,
@@ -43,13 +44,17 @@ export default function LivePreviewExample(props) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(false);
   const [newUserEmail, setNewUserEmail] = useState('');
+  const [simpleModal, setSimpleModal] = useState(false);
 
   const [event, setEvent] = useState({});
+
+  const toggleModal = () => {
+    setSimpleModal(!simpleModal);
+  };
 
   const handleOpenPopover = (event, data) => {
     setPopoverAnchorEl(data.currentTarget);
     setEvent(event);
-    debugger;
   };
   const handleClosePopover = () => {
     setPopoverAnchorEl(null);
@@ -198,9 +203,14 @@ export default function LivePreviewExample(props) {
                           </Button>
                           <Button
                             size="small"
+                            onClick={toggleModal}
                             className="btn-neutral-primary ml-4">
                             Assign
                           </Button>
+                          <SimpleModal
+                            open={simpleModal}
+                            onClose={toggleModal}
+                          />
                         </div>
                       </Grid>
                     </Grid>
