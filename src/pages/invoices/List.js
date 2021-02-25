@@ -9,9 +9,9 @@ import { useQuery } from 'jsonapi-react';
 import { amount } from '../../utils/amount';
 
 export default function LivePreviewExample() {
-  const { data } = useQuery(['invoices', { include: ['invoiceLines'] }]);
+  const { data } = useQuery(['invoices', { include: ['lines'] }]);
   console.log('LIST', data);
-  
+
   return (
     <LeftSidebar>
       <PageTitle

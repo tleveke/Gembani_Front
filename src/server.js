@@ -33,9 +33,9 @@ export function makeServer({ environment = 'test' } = {}) {
         event: belongsTo()
       }),
       invoice: Model.extend({
-        invoiceLines: hasMany()
+        lines: hasMany()
       }),
-      invoiceLine: Model.extend({
+      line: Model.extend({
         invoice: belongsTo()
       })
     },
@@ -156,7 +156,7 @@ export function makeServer({ environment = 'test' } = {}) {
         paid: true
       });
 
-      server.create('invoiceLine', {
+      server.create('line', {
         invoice: invoiceA,
         type: 'Design',
         description:
@@ -164,7 +164,7 @@ export function makeServer({ environment = 'test' } = {}) {
         quantity: 2,
         unitPrice: 150
       });
-      server.create('invoiceLine', {
+      server.create('line', {
         invoice: invoiceA,
         type: 'Software development',
         description:
@@ -173,7 +173,7 @@ export function makeServer({ environment = 'test' } = {}) {
         unitPrice: 270
       });
 
-      server.create('invoiceLine', {
+      server.create('line', {
         invoice: invoiceB,
         type: 'Design',
         description:
@@ -181,7 +181,7 @@ export function makeServer({ environment = 'test' } = {}) {
         quantity: 6,
         unitPrice: 322
       });
-      server.create('invoiceLine', {
+      server.create('line', {
         invoice: invoiceB,
         type: 'Software development',
         description:
@@ -203,11 +203,6 @@ export function makeServer({ environment = 'test' } = {}) {
         return schema.invoices.all();
       });
       this.get('/invoices/:id');
-      this.get('/invoices/:id/invoiceLines', (schema, request) => {
-        let invoiceId = request.params.id;
-        let invoice = schema.invoices.find(invoiceId);
-        return invoice.invoiceLines;
-      });
 
       this.get('/events');
       this.get('/events/:id');

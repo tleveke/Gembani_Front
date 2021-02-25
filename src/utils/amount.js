@@ -3,7 +3,7 @@ export const amount = (invoice) => {
 
   //prix HT
   invoice &&
-    invoice["invoice-lines"].forEach((el) => {
+    invoice.lines.forEach((el) => {
       let price = el.unitPrice * el.quantity;
       result += price;
     });
