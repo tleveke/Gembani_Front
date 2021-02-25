@@ -81,7 +81,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
         lastName: 'Stock',
-        email: 'tom@gembani.com',
+        emails: ['tom@gembani.com'],
         userType: 'employee',
         hourlyRate: '50',
         admin: true,
@@ -93,7 +93,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Nick',
         lastName: 'Stock',
-        email: 'nick@gembani.com',
+        emails: ['nick@gembani.com'],
         userType: 'employee',
         hourlyRate: '50',
         clientDashboard: true,
@@ -102,7 +102,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', {
         firstName: 'Brady',
         lastName: 'Simmons',
-        email: 'brady@test.com',
+        emails: ['brady@test.com'],
         userType: 'client',
         clientDashboard: true,
         company: 1
@@ -125,7 +125,6 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post('/users', (schema, request) => {
         const { data } = JSON.parse(request.requestBody);
-
         return schema.users.create(data.attributes);
       });
 

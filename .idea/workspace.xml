@@ -24,7 +24,13 @@
   <component name="ChangeListManager">
     <list default="true" id="0eee0337-7f35-4dcd-baa3-16af154923f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.nyc_output/out.json" beforeDir="false" afterPath="$PROJECT_DIR$/.nyc_output/out.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/integration/UserCreate.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/integration/UserCreate.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cypress/support/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clientConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/clientConfig.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/User/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/List.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +52,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1ofe44BxAgW8MjuYDOLAG8AXn4y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -117,6 +117,26 @@
       <option name="interactive" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="cypress:ci" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="cypress:ci" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="cypress:dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="cypress:dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -130,6 +150,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.cypress:dev" />
+        <item itemvalue="npm.cypress:ci" />
       </list>
     </recent_temporary>
   </component>
@@ -177,11 +199,6 @@
           <url>file://$PROJECT_DIR$/src/layout-components/SidebarMenu/index.js</url>
           <line>137</line>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/components/Calendar/index.js</url>
-          <line>124</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

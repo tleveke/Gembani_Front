@@ -17,7 +17,15 @@ describe('User Create', () => {
 
     cy.get('.lastName').type('Stock');
 
-    cy.get('.email').type('nick@gembani.com');
+    cy.get('.email-0').type('nick@gembani.com');
+
+    cy.get('.addEmailBtn').click();
+
+    cy.get('.email-1').type('jean@gembani.com');
+
+    cy.get('.addEmailBtn').click();
+
+    cy.get('.email-2').type('simon@gembani.com');
 
     cy.get('.userType').click();
 
