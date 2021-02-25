@@ -9,10 +9,9 @@ import { useQuery } from 'jsonapi-react';
 import { amount } from '../../utils/amount';
 
 export default function LivePreviewExample() {
-  const { data } = useQuery('invoices');
-  const { invoiceLines } = useQuery(['invoices', 1, 'invoiceLines']);
+  const { data } = useQuery(['invoices', { include: ['invoiceLines'] }]);
   console.log('LIST', data);
-  console.log( invoiceLines);
+  
   return (
     <LeftSidebar>
       <PageTitle
@@ -51,7 +50,7 @@ export default function LivePreviewExample() {
                     </td>
                     <td className="font-size-lg font-weight-bold">
                       <small>$</small>
-                      {/* <span>{amount(invoice).total.toFixed(2)}</span> */}
+                      <span>{amount(invoice).total.toFixed(2)}</span>
                     </td>
                     <td className="text-warning">
                       <span>{invoice.paid ? 'YES' : 'NO'}</span>

@@ -12,10 +12,9 @@ import { amount } from '../../utils/amount';
 export default function PageInvoice() {
   let { id } = useParams();
   const { data } = useQuery(['invoices', id, { include: ['invoiceLines'] }]);
+  console.log('View', id, data);
+  const amountCalculated = amount(data);
 
-  console.log('View', data);
-  debugger;
-  //const amountCalculated = amount(data);
   return (
     <>
       <LeftSidebar>
@@ -156,18 +155,19 @@ export default function PageInvoice() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.invoiceLines?.map((service) => (
-                    <tr>
-                      <td className="tx-nowrap">{service?.type}</td>
-                      <td className="d-none d-sm-table-cell text-black-50">
-                        {service?.description}
-                      </td>
-                      <td className="tx-center">{service?.quantity}</td>
-                      <td className="tx-right">${service?.unitPrice}</td>
-                      <td className="tx-right">
-                        ${service?.quantity * service?.unitPrice}
-                      </td>
-                    </tr>
+                  {data["invoice-lines"]?.map((line) => (
+                    console.log(line)
+                    // <tr>
+                    //   <td className="tx-nowrap">{service?.type}</td>
+                    //   <td className="d-none d-sm-table-cell text-black-50">
+                    //     {service?.description}
+                    //   </td>
+                    //   <td className="tx-center">{service?.quantity}</td>
+                    //   <td className="tx-right">${service?.unitPrice}</td>
+                    //   <td className="tx-right">
+                    //     ${service?.quantity * service?.unitPrice}
+                    //   </td>
+                    // </tr>
                   ))}
                 </tbody>
               </Table>
@@ -191,24 +191,24 @@ export default function PageInvoice() {
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Sub-Total</span>
                     <span className="pl-4">
-                      {/*${amountCalculated.result.toFixed(2)}*/}
+                      ${amountCalculated.result.toFixed(2)}
                     </span>
                   </li>
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Tax {data?.tax * 100}%</span>
                     <span className="pl-4">
-                      {/*${amountCalculated.tax.toFixed(2)}*/}
+                      ${amountCalculated.tax.toFixed(2)}
                     </span>
                   </li>
                   <li className="d-flex justify-content-between font-weight-bold pt-3 pb-2 font-size-lg">
                     <span className="pr-4">Total Due</span>
                     <span className="pl-4">
-                      {/*${amountCalculated.total.toFixed(2)}*/}
+                      ${amountCalculated.total.toFixed(2)}
                     </span>
                   </li>
                 </ul>
                 <Button fullWidth className="btn-primary">
-                  Pay invoice{' '}
+                  Pay invoice
                 </Button>
               </Grid>
             </Grid>

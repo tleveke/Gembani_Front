@@ -173,6 +173,22 @@ export function makeServer({ environment = 'test' } = {}) {
         unitPrice: 270
       });
 
+      server.create('invoiceLine', {
+        invoice: invoiceB,
+        type: 'Design',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 6,
+        unitPrice: 322
+      });
+      server.create('invoiceLine', {
+        invoice: invoiceB,
+        type: 'Software development',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 2,
+        unitPrice: 187
+      });
      
     },
 
