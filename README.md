@@ -1,12 +1,12 @@
 ### TODO
 
 # Allow users to add secondary email addresses. (Good for beginners)
-- In the User/Form.js add the possibility to add multiple secondary addresses
+- In the User/Form.js add the possibility to add multiple secondary addresses (DONE)
 - In the calendar view, When you click on an event, there is a button to assign secondary email address: Clicking on that button should open a popup that lists users of type client with a button next to each potential 
   client with an assign secondary email that would add the secondary email to that user.
   
 
-# Seperatte Users list table into  "Clients and Employees" (Good for beginners)
+# Seperate Users list table into  "Clients and Employees" (Good for beginners)
 The plus buttton at tthe top of thte table should create a user that defaults as the correct user type.
 
   
