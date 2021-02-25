@@ -178,11 +178,10 @@ export default function LivePreviewExample(props) {
                   <TextField
                     key={i}
                     fullWidth
-                    id={`emails-${i}`}
                     name={`emails[${i}]`}
-                    className="m-2 email"
+                    className={`m-2 email email-${i}`}
                     value={emailsField[i]}
-                    label={`email n°${i + 1}`}
+                    label={`Email n°${i + 1}`}
                     onChange={handleEmailChange}
                     helperText={touched.emails ? errors.emails : ''}
                     error={Boolean(errors.emails)}
@@ -191,6 +190,7 @@ export default function LivePreviewExample(props) {
                   />
                 ))}
                 <IconButton
+                  className="addEmailBtn"
                   disabled={!emailsField[0] || Boolean(errors.emails)}
                   onClick={() => seEmailsField([...emailsField, ''])}
                   aria-label="Add">

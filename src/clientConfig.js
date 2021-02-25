@@ -15,22 +15,22 @@ const schema = {
     fields: {
       firstName: 'string', // shorthand
       lastName: 'string', // shorthand
-      email: 'string', // shorthand
+      emails: 'array',
       userType: 'string',
       company: 'string',
       employeeDashboard: {
         resolve: (status) => {
-          return status == true;
+          return status === true;
         }
       },
       clientDashboard: {
         resolve: (status) => {
-          return status == true;
+          return status === true;
         }
       },
       admin: {
         resolve: (status) => {
-          return status == true;
+          return status === true;
         }
       },
       hourlyRate: 'string'
