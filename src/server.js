@@ -145,6 +145,43 @@ export function makeServer({ environment = 'test' } = {}) {
         tax: 5,
         paid: false
       });
+
+      server.create('invoice', {
+        numberID: '#INV49584',
+        productID: '56894',
+        issueDate: 'June 16, 2020',
+        dueDate: 'March 14, 2021',
+        billedTo: {
+          company: 'CompanyName, Inc.',
+          adress: '201 Something St., Something Town, YT 242, Country 6546',
+          tel: '609-876-0996',
+          mail: 'name@company.com'
+        },
+        billedFrom: {
+          company: 'Maria P Quinn',
+          adress: '182 Prospect Street, Camden, New Jersey',
+          tel: '856-718-9505',
+          mail: 'rlvs4eizeeo@tstspun.com'
+        },
+        services: [
+          {
+            type: 'Design',
+            description:
+              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+            quantity: 2,
+            unitPrice: 150
+          },
+          {
+            type: 'Software development',
+            description:
+              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+            quantity: 3,
+            unitPrice: 270
+          }
+        ],
+        tax: 5,
+        paid: true
+      });
     },
 
     routes() {
