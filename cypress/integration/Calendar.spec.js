@@ -40,6 +40,5 @@ describe('We see the events created', () => {
     cy.visit('/calendar');
 
     cy.contains(n);
-    cy.contains('SebWorking');
   });
 });
