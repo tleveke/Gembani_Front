@@ -27,11 +27,12 @@ export function makeServer({ environment = 'test' } = {}) {
         company: belongsTo(),
         employee: belongsTo('user')
       }),
-      // booking: Model,
       company: Model.extend({
         bookings: hasMany()
       }),
       token: Model,
+      bookingsCollection: Model,
+
       event: Model.extend({
         attendees: hasMany(),
         employee: belongsTo('user')
@@ -53,11 +54,11 @@ export function makeServer({ environment = 'test' } = {}) {
         }),
         withEmployee: trait({
           afterCreate(test, server) {
-            console.log("azeaze")
-            server.create('user', { aze: 456 })
+            console.log('azeaze');
+            server.create('user', { aze: 456 });
             // server.createList('user', 3, { aze:123 });
           }
-        }),
+        })
       }),
       attendee: Factory.extend({
         email(email) {
@@ -71,7 +72,7 @@ export function makeServer({ environment = 'test' } = {}) {
               employee: employee
             });
           }
-        }),
+        })
       }),
       company: Factory.extend({
         withCompanyBookings: trait({
@@ -88,11 +89,11 @@ export function makeServer({ environment = 'test' } = {}) {
                 maxDate: faker.date.future(),
                 employee: server.create('user', { toto: 123 })
               })
-            )
+            );
           }
-        }),
+        })
       }),
-      // booking: Factory.extend({   
+      // booking: Factory.extend({
       // }),
       event: Factory.extend({
         title(i) {
@@ -124,6 +125,7 @@ export function makeServer({ environment = 'test' } = {}) {
     },
     seeds(server) {
       server.create('company', 'withCompanyBookings', { name: 'Gembani' });
+      server.create('company', 'withCompanyBookings', { name: 'Exxon' });
       // server.create('booking', { name: '123' });
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
@@ -184,24 +186,8 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/bookings', (schema) => {
         return schema.bookings.all();
       });
-      /**
-       * TODO
-       * Test via un post
-       */
-      // this.post('/companies', (schema, request) => {        
-      //   const att = JSON.parse(request.requestBody)
-      //   console.log(att)
-      //   return schema.companies.create(att)
-      // });
-      /**
-       * TODO
-       * Test via un patch
-       */
-      this.patch('/companies/:id', (schema, request) => {        
-        const att = JSON.parse(request.requestBody)
-        // console.log(att)
-        return schema.db.companies.update(request.params.id, att)
-      });
+
+      this.post('/bookingsCollections');
     }
   });
 
