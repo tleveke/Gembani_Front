@@ -93,6 +93,14 @@ const Routes = () => {
       <ThemeProvider theme={MuiTheme}>
         <AnimatePresence>
           <Suspense fallback={<SuspenseLoading />}>
+            <Route
+              exact
+              path="/bamburgh-react-admin-dashboard-pro"
+              render={() => {
+                return <Redirect to="/sessions/new" />;
+              }}
+            />
+
             <Route path={['/sessions/new']}>
               <MinimalLayout>
                 <Login />
