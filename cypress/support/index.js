@@ -24,7 +24,9 @@ Cypress.Commands.add('login', () => {
 
   cy.window().its('localStorage').invoke('setItem','_auth_t_type', "hello")
   cy.window().its('localStorage').invoke('setItem','_my_app_session', "hello")
-  cy.window().its('localStorage').invoke('setItem','_auth_time', "2021-02-22T23:54:38.172Z")
+  
+  var expTime = new Date(new Date().getTime() + 3600 * 60 * 1000);
+  cy.window().its('localStorage').invoke('setItem','_auth_time', expTime)
   cy.window().its('localStorage').invoke('setItem','_auth_state', "{\"token\":\"asd\",\"expiresIn\":\"3600\"}")
 
 
