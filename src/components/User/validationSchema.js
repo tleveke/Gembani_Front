@@ -4,9 +4,10 @@ export default Yup.object({
   userType: Yup.string('Enter the user type').required(
     'A user is either a client or an employee'
   ),
-  email: Yup.string('Enter your email')
-    .email('Enter a valid email')
-    .required('email is required'),
+
+  emails: Yup.array().of(
+    Yup.string().email(({ value }) => `${value} is not a valid email`)
+  ),
 
   hourlyRate: Yup.string().when('userType', {
     is: 'employee',

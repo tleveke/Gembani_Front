@@ -8,8 +8,11 @@ import {
   MenuItem,
   TextField,
   Divider,
-  Button
+  Button,
+  IconButton
 } from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
 
 import { FormGroup } from '@material-ui/core';
 import { useMutation, useQuery } from 'jsonapi-react';
@@ -32,9 +35,10 @@ const userTypes = [
 export default function LivePreviewExample(props) {
   const { user, onCancel } = props;
   const [state, setState] = useState({
-    employeeSection: user && user.userType == 'employee',
-    clientSection: user && user.userType == 'client'
+    employeeSection: user && user.userType === 'employee',
+    clientSection: user && user.userType === 'client'
   });
+  const [emailsField, seEmailsField] = useState(['']);
 
   const { clientSection, employeeSection } = state;
 
@@ -79,7 +83,10 @@ export default function LivePreviewExample(props) {
   );
   const history = useHistory();
   const onSubmit = async (formData, { setSubmitting }) => {
-    const res = await mutate(formData);
+    const res = await mutate({
+      ...formData,
+      emails: emailsField
+    });
     const { onComplete, user } = props;
     setSubmitting(false);
     onComplete(res);
@@ -91,6 +98,7 @@ export default function LivePreviewExample(props) {
         firstName,
         lastName,
         email,
+        emails,
         userType,
         employeeDashboard,
         clientDashboard,
@@ -106,15 +114,16 @@ export default function LivePreviewExample(props) {
       handleChange,
       handleSubmit
     } = props;
+
     const changeUserType = (event) => {
       let value = event.target.value;
       handleChange(event);
-      if (value == 'employee') {
+      if (value === 'employee') {
         setState({
           employeeSection: true,
           clientSection: false
         });
-      } else if (value == 'client') {
+      } else if (value === 'client') {
         setState({
           employeeSection: false,
           clientSection: true
@@ -126,6 +135,16 @@ export default function LivePreviewExample(props) {
         });
       }
     };
+
+    const handleEmailChange = (e) => {
+      handleChange(e);
+      const { value, name } = e.target;
+      const [index] = name.match(/\d+/g);
+      const emailFields_ = emailsField;
+      emailFields_[index] = value;
+      seEmailsField(emailFields_);
+    };
+
     const companyQuery = useQuery('companies');
     return (
       <form onSubmit={handleSubmit}>
@@ -155,19 +174,27 @@ export default function LivePreviewExample(props) {
                   placeholder="Last name"
                   multiline
                 />
-                <TextField
-                  fullWidth
-                  name="email"
-                  className="m-2 email"
-                  value={email}
-                  label="email"
-                  onChange={handleChange}
-                  helperText={touched.email ? errors.email : ''}
-                  error={Boolean(errors.email)}
-                  placeholder="email@example.com"
-                  multiline
-                />
-
+                {emailsField.map((email, i) => (
+                  <TextField
+                    key={i}
+                    fullWidth
+                    id={`emails-${i}`}
+                    name={`emails[${i}]`}
+                    className="m-2 email"
+                    value={emailsField[i]}
+                    label={`email n°${i + 1}`}
+                    onChange={handleEmailChange}
+                    helperText={touched.emails ? errors.emails : ''}
+                    error={Boolean(errors.emails)}
+                    placeholder="email@example.com"
+                    multiline
+                  />
+                ))}
+                <IconButton
+                  onClick={() => seEmailsField([...emailsField, ''])}
+                  aria-label="Add">
+                  <AddIcon />
+                </IconButton>
                 <TextField
                   fullWidth
                   className="m-2 userType"
@@ -242,7 +269,7 @@ export default function LivePreviewExample(props) {
                 </FormGroup>
               </Card>
             )}
-            <Card class={'p-4 mb-4'}>
+            <Card className={'p-4 mb-4'}>
               <Button
                 type="submit"
                 disabled={!isValid}

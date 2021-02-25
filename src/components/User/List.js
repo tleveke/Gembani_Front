@@ -61,7 +61,7 @@ export default function (props) {
                             }}
                             className="font-weight-bold text-black"
                             title="...">
-                            {user.email}
+                            {user.emails ? user.emails.join() : user.email}
                           </Link>
                           <span className="text-black-50 d-block">
                             {user.firstName} {user.lastName}

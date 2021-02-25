@@ -4,10 +4,10 @@ import { Provider } from 'react-redux';
 import Routes from './Routes';
 import ScrollToTop from './utils/ScrollToTop';
 import './assets/base.scss';
-import { ApiClient, ApiProvider } from 'jsonapi-react'
-import { AuthProvider,useAuthHeader } from 'react-auth-kit'
+import { ApiClient, ApiProvider } from 'jsonapi-react';
+import { AuthProvider, useAuthHeader } from 'react-auth-kit';
 
-import clientConfig from './clientConfig'
+import clientConfig from './clientConfig';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   fab,
@@ -259,47 +259,39 @@ library.add(
 );
 const store = configureStore();
 const App = () => {
-
-
   const schema = {
     users: {
       type: 'users',
       fields: {
         first_name: 'string', // shorthand
         last_name: 'string', // shorthand
-        email: 'string', // shorthand
+        email: 'string' // shorthand
       }
     },
-    tokens:{
+    tokens: {
       type: 'tokens',
       fields: {
         email: 'string', // shorthand
-        password: 'string', // shorthand
-
+        password: 'string' // shorthand
       }
-
     }
-  }
-  const authHeader = useAuthHeader()
-  const client = new ApiClient(clientConfig)
+  };
+  const authHeader = useAuthHeader();
+  const client = new ApiClient(clientConfig);
 
-
-
-
-    return (
-        <AuthProvider authStorageType = {'localstorage'}
-                    authStorageName={'_auth_t'}
-                    authTimeStorageName={'_auth_time'}
-                    stateStorageName={'_auth_state'}>
+  return (
+    <AuthProvider
+      authStorageType={'localstorage'}
+      authStorageName={'_auth_t'}
+      authTimeStorageName={'_auth_time'}
+      stateStorageName={'_auth_state'}>
       <Provider store={store}>
         <ApiProvider client={client}>
-
-            <Routes />
+          <Routes />
         </ApiProvider>
       </Provider>
-      </AuthProvider>
-    );
-
-}
+    </AuthProvider>
+  );
+};
 
 export default App;

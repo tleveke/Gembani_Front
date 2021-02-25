@@ -123,7 +123,12 @@ export function makeServer({ environment = 'test' } = {}) {
         return schema.companies.all();
       });
 
-      this.post('/users');
+      this.post('/users', (schema, request) => {
+        const { data } = JSON.parse(request.requestBody);
+
+        return schema.users.create(data.attributes);
+      });
+
       this.patch('/users/:id');
       this.post('/tokens', (schema) => {
         const today = new Date();
