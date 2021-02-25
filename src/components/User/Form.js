@@ -191,6 +191,7 @@ export default function LivePreviewExample(props) {
                   />
                 ))}
                 <IconButton
+                  disabled={!emailsField[0] || Boolean(errors.emails)}
                   onClick={() => seEmailsField([...emailsField, ''])}
                   aria-label="Add">
                   <AddIcon />
@@ -273,7 +274,7 @@ export default function LivePreviewExample(props) {
               <Button
                 type="submit"
                 disabled={!isValid}
-                className=" btn-primary font-weight-bold w-50 my-2">
+                className=" btn-primary font-weight-bold w-50 my-2 submit">
                 Save
               </Button>
               {onCancel && (
