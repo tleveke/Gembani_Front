@@ -15,7 +15,7 @@ import { FormGroup } from '@material-ui/core';
 import { useMutation, useQuery } from 'jsonapi-react';
 import ClientForm from './ClientForm';
 import { Formik, Form } from 'formik';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import validationSchema from './validationSchema';
 
 const userTypes = [
@@ -30,12 +30,32 @@ const userTypes = [
 ];
 
 export default function LivePreviewExample(props) {
-  const { user, onCancel } = props;
+  const { userType, user, onCancel } = props;
+  const location = useLocation();
+  const type = location.state.userType;
   const [state, setState] = useState({
-    employeeSection: user && user.userType == 'employee',
-    clientSection: user && user.userType == 'client'
+    employeeSection: type == 'employee',
+    clientSection: type == 'client'
   });
 
+  
+  
+    /*if (type ==="employee") {
+      setState({
+        employeeSection: true,
+        clientSection: false
+      });
+    }/* else if (type === "client") {
+      setState({
+        employeeSection: false,
+        clientSection: true
+      });
+    } else {
+      setState({
+        employeeSection: false,
+        clientSection: false
+      });
+    }*/
   const { clientSection, employeeSection } = state;
 
   const defaultValues = () => {
@@ -183,7 +203,7 @@ export default function LivePreviewExample(props) {
                       {option.label}
                     </MenuItem>
                   ))}
-                </TextField>
+                  </TextField>
               </div>
             </Card>
             {clientSection && (
