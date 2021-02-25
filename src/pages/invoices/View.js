@@ -11,8 +11,11 @@ import { amount } from '../../utils/amount';
 
 export default function PageInvoice() {
   let { id } = useParams();
-  console.log(id);
   const { data } = useQuery(['invoices', id]);
+  const { invoiceLines } = useQuery(['invoices', id, 'invoiceLines']);
+
+  console.log('View', data);
+  console.log(invoiceLines);
 
   const amountCalculated = amount(data);
   return (
@@ -154,7 +157,7 @@ export default function PageInvoice() {
                     <th className="tx-right">Amount</th>
                   </tr>
                 </thead>
-                <tbody>
+                {/* <tbody>
                   {data?.services.map((service) => (
                     <tr>
                       <td className="tx-nowrap">{service?.type}</td>
@@ -168,7 +171,7 @@ export default function PageInvoice() {
                       </td>
                     </tr>
                   ))}
-                </tbody>
+                </tbody> */}
               </Table>
             </div>
             <div className="divider mb-4" />

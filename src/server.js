@@ -32,7 +32,12 @@ export function makeServer({ environment = 'test' } = {}) {
       attendee: Model.extend({
         event: belongsTo()
       }),
-      invoice: Model
+      invoice: Model.extend({
+        invoiceLines: hasMany()
+      }),
+      invoiceLine: Model.extend({
+        invoice: belongsTo()
+      })
     },
     factories: {
       attendee: Factory.extend({
@@ -109,7 +114,7 @@ export function makeServer({ environment = 'test' } = {}) {
         company: 1
       });
 
-      server.create('invoice', {
+      let invoiceA = server.create('invoice', {
         numberID: '#INV49583',
         productID: '32456',
         issueDate: 'June 14, 2020',
@@ -126,27 +131,11 @@ export function makeServer({ environment = 'test' } = {}) {
           tel: '856-718-9505',
           mail: 'rlvs4eizeeo@tstspun.com'
         },
-        services: [
-          {
-            type: 'Design',
-            description:
-              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 2,
-            unitPrice: 150
-          },
-          {
-            type: 'Software development',
-            description:
-              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 3,
-            unitPrice: 270
-          }
-        ],
         tax: 0.05,
         paid: false
       });
 
-      server.create('invoice', {
+      let invoiceB = server.create('invoice', {
         numberID: '#INV49584',
         productID: '56894',
         issueDate: 'June 16, 2020',
@@ -163,25 +152,28 @@ export function makeServer({ environment = 'test' } = {}) {
           tel: '856-718-9505',
           mail: 'rlvs4eizeeo@tstspun.com'
         },
-        services: [
-          {
-            type: 'Design',
-            description:
-              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 1,
-            unitPrice: 168
-          },
-          {
-            type: 'Software development',
-            description:
-              'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
-            quantity: 4,
-            unitPrice: 222
-          }
-        ],
         tax: 0.05,
         paid: true
       });
+
+      server.create('invoiceLine', {
+        invoice: invoiceA,
+        type: 'Design',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 2,
+        unitPrice: 150
+      });
+      server.create('invoiceLine', {
+        invoice: invoiceA,
+        type: 'Software development',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 3,
+        unitPrice: 270
+      });
+
+     
     },
 
     routes() {
@@ -195,6 +187,11 @@ export function makeServer({ environment = 'test' } = {}) {
         return schema.invoices.all();
       });
       this.get('/invoices/:id');
+      this.get('/invoices/:id/invoiceLines', (schema, request) => {
+        let invoiceId = request.params.id;
+        let invoice = schema.invoices.find(invoiceId);
+        return invoice.invoiceLines;
+      });
 
       this.get('/events');
       this.get('/events/:id');
