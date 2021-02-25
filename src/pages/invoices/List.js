@@ -49,7 +49,7 @@ export default function LivePreviewExample() {
                     </td>
                     <td className="font-size-lg font-weight-bold">
                       <small>$</small>
-                      <span>{amount(invoice).total}</span>
+                      <span>{amount(invoice).total.toFixed(2)}</span>
                     </td>
                     <td className="text-warning">
                       <span>{invoice.paid ? 'YES' : 'NO'}</span>
