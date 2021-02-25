@@ -29,7 +29,7 @@ export default function LivePreviewExample() {
                   Date
                 </th>
                 <th scope="col">Client</th>
-                <th scope="col">ET Amount</th>
+                <th scope="col">Amount</th>
                 <th scope="col">Paid?</th>
                 <th scope="col"></th>
               </tr>
@@ -49,7 +49,7 @@ export default function LivePreviewExample() {
                     </td>
                     <td className="font-size-lg font-weight-bold">
                       <small>$</small>
-                      <span>{amount(invoice)}</span>
+                      <span>{amount(invoice).total}</span>
                     </td>
                     <td className="text-warning">
                       <span>{invoice.paid ? 'YES' : 'NO'}</span>

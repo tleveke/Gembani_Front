@@ -15,10 +15,6 @@ export default function PageInvoice() {
   const { data } = useQuery(['invoices', id]);
 
   const amountCalculated = amount(data);
-
-  const tax = amountCalculated * data?.tax;
-  const total = amountCalculated + tax;
-
   return (
     <>
       <LeftSidebar>
@@ -193,15 +189,21 @@ export default function PageInvoice() {
                 <ul className="list-unstyled mb-3">
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Sub-Total</span>
-                    <span className="pl-4">${amountCalculated.toFixed(2)}</span>
+                    <span className="pl-4">
+                      ${amountCalculated.result.toFixed(2)}
+                    </span>
                   </li>
                   <li className="d-flex justify-content-between pb-1">
                     <span className="pr-4">Tax {data?.tax * 100}%</span>
-                    <span className="pl-4">${tax.toFixed(2)}</span>
+                    <span className="pl-4">
+                      ${amountCalculated.tax.toFixed(2)}
+                    </span>
                   </li>
                   <li className="d-flex justify-content-between font-weight-bold pt-3 pb-2 font-size-lg">
                     <span className="pr-4">Total Due</span>
-                    <span className="pl-4">${total.toFixed(2)}</span>
+                    <span className="pl-4">
+                      ${amountCalculated.total.toFixed(2)}
+                    </span>
                   </li>
                 </ul>
                 <Button fullWidth className="btn-primary">
