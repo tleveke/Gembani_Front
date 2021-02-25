@@ -184,14 +184,22 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/bookings', (schema) => {
         return schema.bookings.all();
       });
-      
       /**
        * TODO
-       * Ici, la fonction à correctement fonctionnée à moment mais, pour une raison inconnue, elle ne fonctionne plus
+       * Test via un post
+       */
+      // this.post('/companies', (schema, request) => {        
+      //   const att = JSON.parse(request.requestBody)
+      //   console.log(att)
+      //   return schema.companies.create(att)
+      // });
+      /**
+       * TODO
+       * Test via un patch
        */
       this.patch('/companies/:id', (schema, request) => {        
         const att = JSON.parse(request.requestBody)
-        console.log(att)
+        // console.log(att)
         return schema.db.companies.update(request.params.id, att)
       });
     }

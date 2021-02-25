@@ -16,14 +16,16 @@ export default function LivePreviewExample() {
     const { data, isLoading: isDataLoading } = useQuery(['companies', { include: ['bookings.employee'] }])
     /**
      * TODO
-     * Ici nous avons essaye des "companies/1" ou juste "companies"
+     * On test manuellement avec l'id 1
      */
     const [mutate, { isLoading: isLoadingMutate }] = useMutation('companies/1')
 
     useEffect(
         () => {
-            console.log(data)
-            setCompanies(data)
+            console.log("DATA local", companies)
+            console.log("DATA from mirage", data)
+            if (companies?.length <= 0 && !!data)
+                setCompanies(data)
         },
         [data]
     )
@@ -39,7 +41,7 @@ export default function LivePreviewExample() {
     )
 
     const onSave = useCallback(
-        async () => await mutate(companies[0]),
+        async (index) => await mutate(companies[index]),
         [companies]
     )
 
@@ -98,90 +100,87 @@ export default function LivePreviewExample() {
                         </ExampleWrapperSeamless>
                     </Grid>
                 </Grid>
-
-                <form
-                    onSubmit={ev => {
-                        ev.preventDefault()
-                        onSave()
-                    }}
-                >
-                    {isLoading ?
-                        <p>Ca charge frere</p> :
-                        <>
-                            {companies?.map((company, i) => (
-                                <Card
-                                    key={`key_${i}`}
-                                    className="p-4 shadow-xxl mb-spacing-6-x2"
-                                >
-                                    <div className="card-header pr-2">
-                                        <div className="card-header--title">
-                                            <b>{company.name}</b>
-                                        </div>
+                {isLoading ?
+                    <p>Loading...</p> :
+                    companies?.map((company, i) => (
+                        <form
+                            key={`key_${i}`}
+                            onSubmit={ev => {
+                                ev.preventDefault()
+                                onSave(i)
+                            }}
+                        >
+                            <Card
+                                className="p-4 shadow-xxl mb-spacing-6-x2"
+                            >
+                                <div className="card-header pr-2">
+                                    <div className="card-header--title">
+                                        <b>{company.name}</b>
                                     </div>
-                                    <div className="table-responsive-md">
-                                        <Table className="table table-alternate-spaced">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Bill?</th>
-                                                    <th style={{ width: '400px' }} scope="col">
-                                                        Event
+                                </div>
+                                <div className="table-responsive-md">
+                                    <Table className="table table-alternate-spaced">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Bill?</th>
+                                                <th style={{ width: '400px' }} scope="col">
+                                                    Event
                                                 </th>
-                                                    <th scope="col">Employee</th>
-                                                    <th scope="col">Number of hours</th>
-                                                    <th scope="col">Total Price</th>
-                                                    <th scope="col">Price Overwrite</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {company?.bookings?.map((booking, y) => (
-                                                    <tr
-                                                        key={`booking_${y}`}
-                                                    >
-                                                        <td className="text-center text-black-50">
-                                                            <span>
-                                                                <Checkbox
-                                                                    checked={booking.isChecked}
-                                                                    onChange={(ev, checked) => {
-                                                                        const data = [...companies]
-                                                                        data[i].bookings[y].isChecked = checked
-                                                                        setCompanies(data)
-                                                                    }}
-                                                                />
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <b>{booking.title}</b>
-                                                            <span className="d-block text-black-50 font-size-sm">
-                                                                {new Date(booking.minDate).toLocaleDateString()} - {new Date(booking.maxDate).toLocaleDateString()}
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <span>{booking?.employee?.firstName} {booking?.employee?.lastName}</span>
-                                                        </td>
-                                                        <td className="font-size-lg font-weight-bold">
-                                                            <span>{booking.hours}</span>
-                                                        </td>
-                                                        <td className="text-warning">
-                                                            <span>{booking.price}</span>
-                                                        </td>
-                                                        <td className="">
-                                                            <Input
-                                                                type="number"
-                                                                value={booking.priceOverwrite}
-                                                                onChange={(ev) => {
+                                                <th scope="col">Employee</th>
+                                                <th scope="col">Number of hours</th>
+                                                <th scope="col">Total Price</th>
+                                                <th scope="col">Price Overwrite</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {company?.bookings?.map((booking, y) => (
+                                                <tr
+                                                    key={`booking_${y}`}
+                                                >
+                                                    <td className="text-center text-black-50">
+                                                        <span>
+                                                            <Checkbox
+                                                                checked={booking.isChecked}
+                                                                onChange={(ev, checked) => {
                                                                     const data = [...companies]
-                                                                    data[i].bookings[y].priceOverwrite = ev.target?.value
+                                                                    data[i].bookings[y].isChecked = checked
                                                                     setCompanies(data)
                                                                 }}
                                                             />
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </Table>
-                                    </div>
-                                </Card>
-                            ))}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <b>{booking.title}</b>
+                                                        <span className="d-block text-black-50 font-size-sm">
+                                                            {new Date(booking.minDate).toLocaleDateString()} - {new Date(booking.maxDate).toLocaleDateString()}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span>{booking?.employee?.firstName} {booking?.employee?.lastName}</span>
+                                                    </td>
+                                                    <td className="font-size-lg font-weight-bold">
+                                                        <span>{booking.hours}</span>
+                                                    </td>
+                                                    <td className="text-warning">
+                                                        <span>{booking.price}</span>
+                                                    </td>
+                                                    <td className="">
+                                                        <Input
+                                                            type="number"
+                                                            value={booking.priceOverwrite}
+                                                            onChange={(ev) => {
+                                                                const data = [...companies]
+                                                                data[i].bookings[y].priceOverwrite = ev.target?.value
+                                                                setCompanies(data)
+                                                            }}
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </Card>
 
                             <Button
                                 type="submit"
@@ -189,9 +188,9 @@ export default function LivePreviewExample() {
                             >
                                 Save
                             </Button>
-                        </>
-                    }
-                </form>
+                        </form>
+                    ))
+                }
             </LeftSidebar>
         </>
     )
