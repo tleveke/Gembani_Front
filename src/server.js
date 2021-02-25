@@ -142,7 +142,7 @@ export function makeServer({ environment = 'test' } = {}) {
             unitPrice: 270
           }
         ],
-        tax: 5,
+        tax: 0.05,
         paid: false
       });
 

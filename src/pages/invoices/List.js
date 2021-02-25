@@ -6,19 +6,10 @@ import { LeftSidebar } from '../../layout-blueprints';
 import { PageTitle } from '../../layout-components';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'jsonapi-react';
+import { amount } from '../../utils/amount';
 
 export default function LivePreviewExample() {
   const { data } = useQuery('invoices');
-
-  const amount = (invoice) => {
-    let result = 0;
-    invoice &&
-      invoice.services.forEach((el) => {
-        let price = el.unitPrice * el.quantity;
-        result += price;
-      });
-    return result;
-  };
 
   return (
     <LeftSidebar>
@@ -38,7 +29,7 @@ export default function LivePreviewExample() {
                   Date
                 </th>
                 <th scope="col">Client</th>
-                <th scope="col">Amount</th>
+                <th scope="col">ET Amount</th>
                 <th scope="col">Paid?</th>
                 <th scope="col"></th>
               </tr>
