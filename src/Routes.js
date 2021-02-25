@@ -19,6 +19,7 @@ import InvoiceView from './pages/invoices/View';
 import InvoiceList from './pages/invoices/List';
 import BookingList from './pages/bookings/List';
 import CalendarPage from './pages/events/Calendar';
+import SettingsPage from './pages/settings/Settings';
 
 // Layout Blueprints
 
@@ -110,6 +111,12 @@ const Routes = () => {
               loginPath={'/sessions/new'}
               exact
               path={'/user/edit/:id'}></PrivateRoute>
+
+            <PrivateRoute
+              component={SettingsPage}
+              loginPath={'/sessions/new'}
+              exact
+              path={'/settings'}></PrivateRoute>
 
             <PrivateRoute
               component={UserListPage}
