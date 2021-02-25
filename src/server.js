@@ -31,6 +31,9 @@ export function makeServer({ environment = 'test' } = {}) {
       }),
       attendee: Model.extend({
         event: belongsTo()
+      }),
+      invite: Model.extend({
+        user: belongsTo()
       })
     },
     factories: {

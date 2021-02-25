@@ -223,6 +223,15 @@ const SidebarMenu = (props) => {
                 </ul>
               </Collapse>
             </li>
+            <li>
+              <NavLink to="/settings">
+                <span className="sidebar-icon">
+                  <SettingsTwoToneIcon />
+                </span>
+                <span className="sidebar-item-label">Settings</span>
+                <span className="sidebar-icon-indicator"></span>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </PerfectScrollbar>
