@@ -18,7 +18,7 @@ export default function LivePreviewExample() {
         titleDescription="This pages contains an example invoices design."
       />
       <Card className="p-4 shadow-xxl mb-spacing-6-x2">
-        <div className="table-responsive-md">
+        <div className="table-responsive-md invoices-table">
           <Table className="table table-alternate-spaced">
             <thead>
               <tr>
@@ -37,7 +37,7 @@ export default function LivePreviewExample() {
             <tbody>
               {data?.map((invoice) => (
                 <>
-                  <tr key={invoice}>
+                  <tr key={invoice} className="invoice-row">
                     <td className="text-center text-black-50">
                       <span>{invoice.numberID}</span>
                     </td>
@@ -59,7 +59,7 @@ export default function LivePreviewExample() {
                         to={{
                           pathname: `/invoice/view/${invoice.id}`
                         }}>
-                        <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
+                        <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center invoice-view-button">
                           <FontAwesomeIcon
                             icon={['fas', 'search']}
                             className="font-size-sm"
