@@ -55,7 +55,7 @@ const EmailForm = (props) => {
             </TextField>
             <TextField
               variant="outlined"
-              className="m-2"
+              className="m-2 emailContent"
               fullWidth
               multiline
               rows="10"
