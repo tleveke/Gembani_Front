@@ -39,7 +39,8 @@ export function makeServer({ environment = 'test' } = {}) {
       }),
       attendee: Model.extend({
         event: belongsTo()
-      })
+      }),
+      email: Model
     },
     factories: {
       booking: Factory.extend({
@@ -127,6 +128,16 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('company', 'withCompanyBookings', { name: 'Gembani' });
       server.create('company', 'withCompanyBookings', { name: 'Exxon' });
       // server.create('booking', { name: '123' });
+      server.create('email', {
+        type: 'client',
+        content: 'Voici ce mail client !'
+      });
+      server.create('email', {
+        type: 'employee',
+        content: 'Voici ce mail employé !'
+      });
+
+      server.create('company', { name: 'Gembani' });
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
         lastName: 'Stock',
@@ -173,7 +184,13 @@ export function makeServer({ environment = 'test' } = {}) {
       });
 
       this.post('/users');
-      this.patch('/users/:id');
+      this.get('/emails/:type', (schema, request) => {
+        return schema.emails.findBy({ type: request.params.type });
+      });
+      this.patch('/emails/:type', (schema, request) => {
+        let email = schema.emails.findBy({ type: request.params.type });
+        return email.update(request.requestBody);
+      });
       this.post('/tokens', (schema) => {
         const today = new Date();
         const tomorrow = new Date(today);

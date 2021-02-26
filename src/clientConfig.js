@@ -10,6 +10,13 @@ const schema = {
       title: 'string'
     }
   },
+  email: {
+    types: 'emails',
+    fields: {
+      type: 'string',
+      content: 'string'
+    }
+  },
   users: {
     type: 'users',
     fields: {
