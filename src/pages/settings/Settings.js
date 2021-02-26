@@ -2,17 +2,21 @@ import React, { useState } from 'react';
 
 import { LeftSidebar } from '../../layout-blueprints';
 import EmailForm from '../../components/Settings/EmailForm';
-import { useQuery, useMutation } from 'jsonapi-react';
+import { useQuery, useMutation, useClient } from 'jsonapi-react';
 import { List, ListItem, Card } from '@material-ui/core';
 
 const SettingsPage = () => {
   const [emailType, setEmailType] = useState('client');
+  const [email, setEmail] = useState();
 
-  const { data, isLoading } = useQuery(['emails', emailType]);
+  let { data, isLoading } = useQuery(['emails', emailType]);
 
-  const onTypeChange = (event) => {
+  const client = useClient();
+  const onTypeChange = async (event) => {
     let { value } = event.target;
     setEmailType(value);
+    let newResponse = await client.fetch(['emails', emailType]);
+    setEmail(newResponse.data);
   };
 
   return (
@@ -21,7 +25,11 @@ const SettingsPage = () => {
         {isLoading ? (
           <p>loading...</p>
         ) : (
-          <EmailForm email={data} onTypeChange={onTypeChange} />
+          <EmailForm
+            email={data}
+            onTypeChange={onTypeChange}
+            emailType={emailType}
+          />
         )}
       </LeftSidebar>
     </>

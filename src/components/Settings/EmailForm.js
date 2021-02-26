@@ -47,11 +47,6 @@ const EmailForm = (props) => {
       onTypeChange
     } = props;
 
-    const onEmailTypeChange = (e) => {
-      onTypeChange(e);
-      handleChange(e);
-    };
-
     return (
       <form onSubmit={handleSubmit}>
         <Grid container spacing={4}>
@@ -66,7 +61,7 @@ const EmailForm = (props) => {
                 label="Email Type"
                 name="emailType"
                 value={type}
-                onChange={onEmailTypeChange}>
+                onChange={onTypeChange}>
                 {emailTypes.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
                     {option.label}
