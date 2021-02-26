@@ -23,8 +23,16 @@ export function makeServer({ environment = 'test' } = {}) {
     },
     models: {
       user: Model,
-      company: Model,
+      booking: Model.extend({
+        company: belongsTo(),
+        employee: belongsTo('user')
+      }),
+      company: Model.extend({
+        bookings: hasMany()
+      }),
       token: Model,
+      bookingsCollection: Model,
+
       event: Model.extend({
         attendees: hasMany(),
         employee: belongsTo('user')
@@ -34,6 +42,24 @@ export function makeServer({ environment = 'test' } = {}) {
       })
     },
     factories: {
+      booking: Factory.extend({
+        // email(email) {
+        //   return faker.internet.domainName();
+        // },
+        withBookings: trait({
+          afterCreate(booking, server) {
+            // console.log("user", booking)
+            server.createList('booking', 3, { booking });
+          }
+        }),
+        withEmployee: trait({
+          afterCreate(test, server) {
+            console.log('azeaze');
+            server.create('user', { aze: 456 });
+            // server.createList('user', 3, { aze:123 });
+          }
+        })
+      }),
       attendee: Factory.extend({
         email(email) {
           return faker.internet.email();
@@ -48,6 +74,27 @@ export function makeServer({ environment = 'test' } = {}) {
           }
         })
       }),
+      company: Factory.extend({
+        withCompanyBookings: trait({
+          afterCreate(company, server) {
+            new Array(10).fill().map(() =>
+              server.create('booking', {
+                company: company,
+                isChecked: faker.random.boolean(),
+                title: faker.name.jobTitle(),
+                hours: faker.random.number({ min: 0, max: 2 }),
+                price: faker.random.number({ min: 100, max: 300 }),
+                priceOverwrite: faker.random.number({ min: 0, max: 300 }),
+                minDate: faker.date.past(),
+                maxDate: faker.date.future(),
+                employee: server.create('user', { toto: 123 })
+              })
+            );
+          }
+        })
+      }),
+      // booking: Factory.extend({
+      // }),
       event: Factory.extend({
         title(i) {
           return `Event ${i}`;
@@ -77,7 +124,9 @@ export function makeServer({ environment = 'test' } = {}) {
       })
     },
     seeds(server) {
-      server.create('company', { name: 'Gembani' });
+      server.create('company', 'withCompanyBookings', { name: 'Gembani' });
+      server.create('company', 'withCompanyBookings', { name: 'Exxon' });
+      // server.create('booking', { name: '123' });
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
         lastName: 'Stock',
@@ -133,7 +182,12 @@ export function makeServer({ environment = 'test' } = {}) {
           authState: { token: 'HelloWorld', expiresIn: 3600 }
         });
       });
-      this.post('/companies');
+
+      this.get('/bookings', (schema) => {
+        return schema.bookings.all();
+      });
+
+      this.post('/bookingsCollections');
     }
   });
 

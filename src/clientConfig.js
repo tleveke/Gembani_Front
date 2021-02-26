@@ -42,6 +42,49 @@ const schema = {
       email: 'string', // shorthand
       password: 'string' // shorthand
     }
+  },
+  /**
+   * TODO
+   * Schema que nous avons créé, peut-être le soucis vient d'ici ?
+   */
+  companies: {
+    type: 'companies',
+    fields: {
+      id: 'string',
+      name: 'string'
+    },
+    relationships: {
+      bookings: {
+        type: 'bookings'
+      }
+    }
+  },
+  bookingsCollections: {
+    type: 'bookingsCollection',
+    relationships: {
+      bookings: {
+        type: 'bookings'
+      }
+    }
+  },
+
+  bookings: {
+    type: 'bookings',
+    fields: {
+      id: 'string',
+      maxDate: 'string',
+      minDate: 'string',
+      priceOverwrite: 'number',
+      price: 'number',
+      hours: 'number',
+      title: 'string',
+      isChecked: 'boolean'
+    },
+    relationships: {
+      employee: {
+        type: 'users'
+      }
+    }
   }
 };
 
