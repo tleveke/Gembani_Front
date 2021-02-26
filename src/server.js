@@ -135,7 +135,6 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post('/users');
       this.get('/emails/:type', (schema, request) => {
-        console.log(schema.emails.all());
         return schema.emails.findBy({ type: request.params.type });
       });
       this.patch('/emails/:type', (schema, request) => {
