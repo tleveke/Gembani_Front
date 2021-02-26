@@ -5,16 +5,21 @@ import { Table, Card, Button } from '@material-ui/core';
 import { LeftSidebar } from '../../layout-blueprints';
 import { PageTitle } from '../../layout-components';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'jsonapi-react';
+import { amount } from '../../utils/amount';
 
 export default function LivePreviewExample() {
+  const { data } = useQuery(['invoices', { include: ['lines'] }]);
+  console.log('LIST', data);
+
   return (
     <LeftSidebar>
       <PageTitle
-        titleHeading="Invoice List"
-        titleDescription="This pages contains an example invoice design."
+        titleHeading="Invoices List"
+        titleDescription="This pages contains an example invoices design."
       />
       <Card className="p-4 shadow-xxl mb-spacing-6-x2">
-        <div className="table-responsive-md">
+        <div className="table-responsive-md invoices-table">
           <Table className="table table-alternate-spaced">
             <thead>
               <tr>
@@ -31,92 +36,42 @@ export default function LivePreviewExample() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-              <tr className="divider"></tr>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
-              <tr className="divider"></tr>
-              <tr>
-                <td className="text-center text-black-50">
-                  <span>#545</span>
-                </td>
-                <td>
-                  <b>July 2020</b>
-                </td>
-                <td>
-                  <span>Rupert Bryan</span>
-                </td>
-                <td className="font-size-lg font-weight-bold">
-                  <small>$</small>
-                  <span>2,495</span>
-                </td>
-                <td className="text-warning">
-                  <span>YES</span>
-                </td>
-                <td className="text-right">
-                  <Link to={'/invoice/view'}>
-                    <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center">
-                      <FontAwesomeIcon
-                        icon={['fas', 'search']}
-                        className="font-size-sm"
-                      />
-                    </Button>
-                  </Link>
-                </td>
-              </tr>
+              {data?.map((invoice) => (
+                <>
+                  <tr key={invoice} className="invoice-row">
+                    <td className="text-center text-black-50">
+                      <span>{invoice.numberID}</span>
+                    </td>
+                    <td>
+                      <b>{invoice.dueDate}</b>
+                    </td>
+                    <td>
+                      <span>{invoice.billedTo.company}</span>
+                    </td>
+                    <td className="font-size-lg font-weight-bold">
+                      <small>$</small>
+                      <span>{amount(invoice).total.toFixed(2)}</span>
+                    </td>
+                    <td className="text-warning">
+                      <span>{invoice.paid ? 'YES' : 'NO'}</span>
+                    </td>
+                    <td className="text-right">
+                      <Link
+                        to={{
+                          pathname: `/invoice/view/${invoice.id}`
+                        }}>
+                        <Button className="btn-neutral-primary mx-1 rounded-sm shadow-none hover-scale-sm d-40 border-0 p-0 d-inline-flex align-items-center justify-content-center invoice-view-button">
+                          <FontAwesomeIcon
+                            icon={['fas', 'search']}
+                            className="font-size-sm"
+                          />
+                        </Button>
+                      </Link>
+                    </td>
+                  </tr>
+                  <tr className="divider"></tr>
+                </>
+              ))}
             </tbody>
           </Table>
         </div>

@@ -40,7 +40,13 @@ export function makeServer({ environment = 'test' } = {}) {
       attendee: Model.extend({
         event: belongsTo()
       }),
-      email: Model
+      email: Model,
+      invoice: Model.extend({
+        lines: hasMany()
+      }),
+      line: Model.extend({
+        invoice: belongsTo()
+      })
     },
     factories: {
       booking: Factory.extend({
@@ -167,6 +173,83 @@ export function makeServer({ environment = 'test' } = {}) {
         clientDashboard: true,
         company: 1
       });
+
+      let invoiceA = server.create('invoice', {
+        numberID: '#INV49583',
+        productID: '32456',
+        issueDate: 'June 14, 2020',
+        dueDate: 'March 12, 2021',
+        billedTo: {
+          company: 'CompanyName, Inc.',
+          adress: '201 Something St., Something Town, YT 242, Country 6546',
+          tel: '609-876-0996',
+          mail: 'name@company.com'
+        },
+        billedFrom: {
+          company: 'Maria P Quinn',
+          adress: '182 Prospect Street, Camden, New Jersey',
+          tel: '856-718-9505',
+          mail: 'rlvs4eizeeo@tstspun.com'
+        },
+        tax: 0.05,
+        paid: false
+      });
+
+      let invoiceB = server.create('invoice', {
+        numberID: '#INV49584',
+        productID: '56894',
+        issueDate: 'June 16, 2020',
+        dueDate: 'March 14, 2021',
+        billedTo: {
+          company: 'CompanyName, Inc.',
+          adress: '201 Something St., Something Town, YT 242, Country 6546',
+          tel: '609-876-0996',
+          mail: 'name@company.com'
+        },
+        billedFrom: {
+          company: 'Maria P Quinn',
+          adress: '182 Prospect Street, Camden, New Jersey',
+          tel: '856-718-9505',
+          mail: 'rlvs4eizeeo@tstspun.com'
+        },
+        tax: 0.05,
+        paid: true
+      });
+
+      server.create('line', {
+        invoice: invoiceA,
+        type: 'Design',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 2,
+        unitPrice: 150
+      });
+      server.create('line', {
+        invoice: invoiceA,
+        type: 'Software development',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 3,
+        unitPrice: 270
+      });
+
+      server.create('line', {
+        invoice: invoiceB,
+        type: 'Design',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 6,
+        unitPrice: 322
+      });
+      server.create('line', {
+        invoice: invoiceB,
+        type: 'Software development',
+        description:
+          'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.	',
+        quantity: 2,
+        unitPrice: 187
+      });
+     
     },
 
     routes() {
@@ -175,6 +258,11 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/users', (schema) => {
         return schema.users.all();
       });
+
+      this.get('/invoices', (schema) => {
+        return schema.invoices.all();
+      });
+      this.get('/invoices/:id');
 
       this.get('/events');
       this.get('/events/:id');
