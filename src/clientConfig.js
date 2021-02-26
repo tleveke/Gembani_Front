@@ -50,30 +50,39 @@ const schema = {
   companies: {
     type: 'companies',
     fields: {
-      "id": "string",
-      "name": "string"
+      id: 'string',
+      name: 'string'
     },
     relationships: {
       bookings: {
-        type: 'bookings',
+        type: 'bookings'
       }
-    },
+    }
   },
+  bookingsCollections: {
+    type: 'bookingsCollection',
+    relationships: {
+      bookings: {
+        type: 'bookings'
+      }
+    }
+  },
+
   bookings: {
     type: 'bookings',
     fields: {
-      "id": "string",
-      "maxDate": "string",
-      "minDate": "string",
-      "priceOverwrite": "number",
-      "price": "number",
-      "hours": "number",
-      "title": "string",
-      "isChecked": "boolean",
+      id: 'string',
+      maxDate: 'string',
+      minDate: 'string',
+      priceOverwrite: 'number',
+      price: 'number',
+      hours: 'number',
+      title: 'string',
+      isChecked: 'boolean'
     },
     relationships: {
       employee: {
-        type: 'users',
+        type: 'users'
       }
     }
   }

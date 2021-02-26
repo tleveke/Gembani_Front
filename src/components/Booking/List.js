@@ -17,7 +17,7 @@ export default function LivePreviewExample(props) {
   const [mutate, { isLoading: isLoadingMutate }] = useMutation(
     'bookingsCollections'
   );
-  const { companies, error } = props;
+  const { companies, error, endDateFilter, startDateFilter, startDate, endDate } = props;
 
   const defaultValues = () => {
     return { bookings: mergeBookings() };
@@ -63,6 +63,8 @@ export default function LivePreviewExample(props) {
                       variant="inline"
                       format="MM/dd/yyyy"
                       margin="normal"
+                      value={startDate}
+                      onChange={startDateFilter}
                       id="date-picker-inline"
                       label="Start Date"
                       KeyboardButtonProps={{
@@ -82,6 +84,8 @@ export default function LivePreviewExample(props) {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <div className="m-4">
                     <KeyboardDatePicker
+                      onChange={endDateFilter}
+                      value={endDate}
                       disableToolbar
                       variant="inline"
                       format="MM/dd/yyyy"
