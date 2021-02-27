@@ -45,8 +45,8 @@ export default function (props) {
                 </tr>
               </thead>
               <tbody>
-                {data.map((user) => (
-                  <tr>
+                {data.map((user, i) => (
+                  <tr key={i}>
                     <td>
                       <div className="d-flex align-items-center">
                         <div className="avatar-icon-wrapper mr-3">
@@ -61,7 +61,7 @@ export default function (props) {
                             }}
                             className="font-weight-bold text-black"
                             title="...">
-                            {user.email}
+                            {user.emails ? user.emails.join() : user.email}
                           </Link>
                           <span className="text-black-50 d-block">
                             {user.firstName} {user.lastName}

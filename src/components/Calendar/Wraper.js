@@ -14,10 +14,7 @@ import {
 } from '@material-ui/core';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { LeftSidebar } from '../../layout-blueprints';
 import CalendarFullWidth from './index';
-import { useQuery } from 'jsonapi-react';
-import UserList from '../../components/User/List';
 
 export default function LivePreviewExample(props) {
   const [isSidebarMenuOpen, setIsSidebarMenuOpen] = useState(false);

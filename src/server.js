@@ -32,7 +32,9 @@ export function makeServer({ environment = 'test' } = {}) {
       }),
       token: Model,
       bookingsCollection: Model,
-
+      secondaryEmail: Model.extend({
+        user: belongsTo()
+      }),
       event: Model.extend({
         attendees: hasMany(),
         employee: belongsTo('user')
@@ -72,7 +74,25 @@ export function makeServer({ environment = 'test' } = {}) {
           return faker.internet.email();
         }
       }),
+      secondaryEmail: Factory.extend({
+        email(email) {
+          return faker.internet.email();
+        }
+      }),
       user: Factory.extend({
+        email(email) {
+          return faker.internet.email();
+        },
+        secondaryEmails() {
+          return [faker.internet.email(), faker.internet.email()];
+        },
+        firstName() {
+          return faker.name.firstName();
+        },
+        lastName() {
+          return faker.name.lastName();
+        },
+
         withEmployeeEvents: trait({
           afterCreate(employee, server) {
             server.createList('event', 10, 'withAttendees', {
@@ -147,7 +167,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Tom',
         lastName: 'Stock',
-        email: 'tom@gembani.com',
+        emails: ['tom@gembani.com'],
         userType: 'employee',
         hourlyRate: '50',
         admin: true,
@@ -159,7 +179,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Nick',
         lastName: 'Stock',
-        email: 'nick@gembani.com',
+        email: 'brady@test.com',
         userType: 'employee',
         hourlyRate: '50',
         clientDashboard: true,
@@ -255,8 +275,17 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api';
 
-      this.get('/users', (schema) => {
-        return schema.users.all();
+      this.get('/users', (schema, req) => {
+        const users = schema.users.all();
+        if (req.queryParams['filter[userType]']) {
+          console.log(users);
+          const userFiltered = users.models.filter(
+            (model) =>
+              model.attrs.userType === req.queryParams['filter[userType]']
+          );
+          users.models = userFiltered;
+        }
+        return users;
       });
 
       this.get('/invoices', (schema) => {
@@ -279,6 +308,8 @@ export function makeServer({ environment = 'test' } = {}) {
         let email = schema.emails.findBy({ type: request.params.type });
         return email.update(request.requestBody);
       });
+
+      this.patch('/users/:id');
       this.post('/tokens', (schema) => {
         const today = new Date();
         const tomorrow = new Date(today);
@@ -293,6 +324,8 @@ export function makeServer({ environment = 'test' } = {}) {
       });
 
       this.post('/bookingsCollections');
+      this.post('/secondaryEmails');
+      this.post('/companies');
     }
   });
 
