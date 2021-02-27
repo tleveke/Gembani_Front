@@ -10,9 +10,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
-import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
+
+import { useMutation } from 'jsonapi-react';
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles({
@@ -26,13 +26,24 @@ const useStyles = makeStyles({
 });
 
 const SimpleModal = (props) => {
+  const [addSecondaryEmail, { isLoading, data, error, errors }] = useMutation([
+    'secondaryEmails'
+  ]);
+
   const classes = useStyles();
-  const { onClose, open, clients } = props;
+  const { onClose, open, clients, clientEmail } = props;
 
   const handleClose = () => {
     onClose();
   };
 
+  const addInfoEvent = async (client) => {
+    let res = await addSecondaryEmail({
+      email: clientEmail,
+      userId: client.id
+    });
+    onClose();
+  };
   const handleListItemClick = (value) => {
     onClose(value);
   };
@@ -43,15 +54,19 @@ const SimpleModal = (props) => {
       open={open}>
       <DialogTitle id="simple-dialog-title">Clients Accounts</DialogTitle>
       <List>
-        {clients.data.map((client) => (
-          <ListItem>
+        {clients.data?.map((client) => (
+          <ListItem key={client.id}>
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
             <ListItemText primary={client.email} />
-            <Button onClick="AddIntoEvent" classname="btn btn-primary mx-4">
+            <Button
+              onClick={() => {
+                addInfoEvent(client);
+              }}
+              className="btn btn-primary mx-4">
               <strong className={classes.buttonAdd}>+</strong>
             </Button>
           </ListItem>
@@ -59,12 +74,6 @@ const SimpleModal = (props) => {
       </List>
     </Dialog>
   );
-};
-
-SimpleModal.propTypes = {
-  clients: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
 };
 
 export default SimpleModal;

@@ -18,15 +18,11 @@ export default function CompanyTextField(props) {
       value={company}
       helperText={touched.company ? errors.company : ''}
       error={Boolean(errors.company)}>
-      {isLoading ? (
-        <MenuItem>Loading...</MenuItem>
-      ) : (
-        data.map((option) => (
-          <MenuItem key={option.id} value={option.id}>
-            {option.name}
-          </MenuItem>
-        ))
-      )}
+      {data.map((option) => (
+        <MenuItem key={option.id} value={option.id}>
+          {option.name}
+        </MenuItem>
+      ))}
     </TextField>
   );
 }

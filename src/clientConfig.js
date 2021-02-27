@@ -15,7 +15,7 @@ const schema = {
     fields: {
       firstName: 'string', // shorthand
       lastName: 'string', // shorthand
-      emails: 'array',
+      secondaryEmails: 'array',
       userType: 'string',
       company: 'string',
       employeeDashboard: {

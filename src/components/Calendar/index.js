@@ -42,20 +42,23 @@ const localizer = dateFnsLocalizer({
 
 export default function LivePreviewExample(props) {
   const { events } = props;
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [newUserDialogOpen, setNewUserDialogOpen] = useState(false);
+  const [clientEmail, setClientEmail] = useState('');
   const [popoverAnchorEl, setPopoverAnchorEl] = useState(false);
   const [newUserEmail, setNewUserEmail] = useState('');
-  const [simpleModal, setSimpleModal] = useState(false);
+  const [simpleModalOpen, setSimpleModalOpen] = useState(false);
   const userQuery = useQuery([
     'users',
     {
-      userType: 'client'
+      filter: {
+        userType: 'client'
+      }
     }
   ]);
   const [event, setEvent] = useState({});
 
   const toggleModal = () => {
-    setSimpleModal(!simpleModal);
+    setSimpleModalOpen(!simpleModalOpen);
   };
 
   const handleOpenPopover = (event, data) => {
@@ -76,12 +79,12 @@ export default function LivePreviewExample(props) {
   const newUser = (user) => {
     setNewUserEmail(user.email);
     handleClosePopover();
-    setDialogOpen(true);
+    setNewUserDialogOpen(true);
   };
 
   const onClose = (user) => {
     setNewUserEmail('');
-    setDialogOpen(false);
+    setNewUserDialogOpen(false);
   };
 
   const eventStyleGetter = (event, start, end, isSelected) => {
@@ -134,7 +137,7 @@ export default function LivePreviewExample(props) {
         <List
           component="div"
           className="list-group-flush text-left bg-transparent">
-          <ListItem className="rounded-top">
+          <ListItem component="div" className="rounded-top">
             <div className="align-box-row">
               <div className="pl-2">
                 <span className="pb-1 d-block font-weight-bold">
@@ -161,7 +164,7 @@ export default function LivePreviewExample(props) {
               </div>
             </div>
           </ListItem>
-          <ListItem className="d-block bg-transparent py-2">
+          <ListItem component="div" className="d-block bg-transparent py-2">
             <div className="align-box-row mb-1">
               <div>
                 <small className="font-weight-bold">Attendees</small>
@@ -170,7 +173,7 @@ export default function LivePreviewExample(props) {
             <List component="div" className="list-group-flush">
               {event.attendees &&
                 event.attendees.map((attendee) => (
-                  <ListItem key={attendee.id} className="py-3">
+                  <ListItem component="div" key={attendee.id} className="py-3">
                     <Grid container spacing={0}>
                       <Grid
                         item
@@ -209,15 +212,14 @@ export default function LivePreviewExample(props) {
                           </Button>
                           <Button
                             size="small"
-                            onClick={toggleModal}
+                            onClick={() => {
+                              setNewUserEmail(attendee.email);
+                              handleClosePopover();
+                              setSimpleModalOpen(true);
+                            }}
                             className="btn-neutral-primary ml-4">
                             Assign
                           </Button>
-                          <SimpleModal
-                            clients={userQuery}
-                            open={simpleModal}
-                            onClose={toggleModal}
-                          />
                         </div>
                       </Grid>
                     </Grid>
@@ -227,7 +229,13 @@ export default function LivePreviewExample(props) {
           </ListItem>
         </List>
       </Popover>
-      <Dialog open={dialogOpen} newUserEmail={newUserEmail} onClose={onClose} />
+      <SimpleModal
+        clients={userQuery}
+        open={simpleModalOpen}
+        clientEmail={newUserEmail}
+        onClose={toggleModal}
+      />
+      <Dialog open={newUserDialogOpen} onClose={onClose} />
     </>
   );
 }

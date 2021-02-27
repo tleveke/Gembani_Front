@@ -5,8 +5,11 @@ export default Yup.object({
     'A user is either a client or an employee'
   ),
 
-  emails: Yup.array().of(
-    Yup.string().email(({ value }) => `${value} is not a valid email`)
+  email: Yup.string().email(({ value }) => `${value} is not a valid email`),
+  secondaryEmails: Yup.array().of(
+    Yup.string()
+      .required('Alternative emails cannot be blank')
+      .email(({ value }) => `${value} is not a valid email`)
   ),
 
   hourlyRate: Yup.string().when('userType', {

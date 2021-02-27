@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   Grid,
@@ -11,16 +11,16 @@ import {
   Button,
   IconButton
 } from '@material-ui/core';
-
+import FormSpliter from './FormSpliter';
 import AddIcon from '@material-ui/icons/Add';
 
 import { FormGroup } from '@material-ui/core';
 import { useMutation, useQuery } from 'jsonapi-react';
 import ClientForm from './ClientForm';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FieldArray, Field } from 'formik';
 import { useHistory } from 'react-router-dom';
 import validationSchema from './validationSchema';
-
+import SecondaryEmails from './SecondaryEmails';
 const userTypes = [
   {
     value: 'employee',
@@ -32,16 +32,8 @@ const userTypes = [
   }
 ];
 
-export default function LivePreviewExample(props) {
-  const { user, onCancel } = props;
-  const [state, setState] = useState({
-    employeeSection: user && user.userType === 'employee',
-    clientSection: user && user.userType === 'client'
-  });
-  const [emailsField, seEmailsField] = useState(['']);
-
-  const { clientSection, employeeSection } = state;
-
+export default function UserForm(props) {
+  const { user, onCancel, companyQuery } = props;
   const defaultValues = () => {
     const { user } = props;
     if (user) {
@@ -51,6 +43,7 @@ export default function LivePreviewExample(props) {
         firstName: '',
         lastName: '',
         email: '',
+        secondaryEmails: [],
         userType: '',
         company: '',
         admin: false,
@@ -84,70 +77,26 @@ export default function LivePreviewExample(props) {
   const history = useHistory();
   const onSubmit = async (formData, { setSubmitting }) => {
     const res = await mutate({
-      ...formData,
-      emails: emailsField
+      ...formData
     });
     const { onComplete, user } = props;
     setSubmitting(false);
     onComplete(res);
   };
 
-  const Form = (props) => {
+  const NewForm = (props) => {
     const {
-      values: {
-        firstName,
-        lastName,
-        email,
-        emails,
-        userType,
-        employeeDashboard,
-        clientDashboard,
-        hourlyRate,
-        admin,
-        company
-      },
+      values: { firstName, lastName, email, userType, company },
 
       errors,
       touched,
       isValid,
-
-      handleChange,
-      handleSubmit
+      companyQuery,
+      handleChange
     } = props;
 
-    const changeUserType = (event) => {
-      let value = event.target.value;
-      handleChange(event);
-      if (value === 'employee') {
-        setState({
-          employeeSection: true,
-          clientSection: false
-        });
-      } else if (value === 'client') {
-        setState({
-          employeeSection: false,
-          clientSection: true
-        });
-      } else {
-        setState({
-          employeeSection: false,
-          clientSection: false
-        });
-      }
-    };
-
-    const handleEmailChange = (e) => {
-      handleChange(e);
-      const { value, name } = e.target;
-      const [index] = name.match(/\d+/g);
-      const emailFields_ = emailsField;
-      emailFields_[index] = value;
-      seEmailsField(emailFields_);
-    };
-
-    const companyQuery = useQuery('companies');
     return (
-      <form onSubmit={handleSubmit}>
+      <Form>
         <Grid container spacing={4}>
           <Grid item xs={12} lg={12}>
             <Card className="p-4 mb-4">
@@ -174,28 +123,20 @@ export default function LivePreviewExample(props) {
                   placeholder="Last name"
                   multiline
                 />
-                {emailsField.map((email, i) => (
-                  <TextField
-                    key={i}
-                    fullWidth
-                    name={`emails[${i}]`}
-                    className={`m-2 email email-${i}`}
-                    value={emailsField[i]}
-                    label={`Email n°${i + 1}`}
-                    onChange={handleEmailChange}
-                    helperText={touched.emails ? errors.emails : ''}
-                    error={Boolean(errors.emails)}
-                    placeholder="email@example.com"
-                    multiline
-                  />
-                ))}
-                <IconButton
-                  className="addEmailBtn"
-                  disabled={!emailsField[0] || Boolean(errors.emails)}
-                  onClick={() => seEmailsField([...emailsField, ''])}
-                  aria-label="Add">
-                  <AddIcon />
-                </IconButton>
+                <TextField
+                  fullWidth
+                  name="email"
+                  className="m-2 email"
+                  value={email}
+                  helperText={touched.email ? errors.email : ''}
+                  error={Boolean(errors.email)}
+                  onChange={handleChange}
+                  label="Email"
+                  placeholder="email"
+                  multiline
+                />
+                <SecondaryEmails {...props} />
+
                 <TextField
                   fullWidth
                   className="m-2 userType"
@@ -205,7 +146,7 @@ export default function LivePreviewExample(props) {
                   helperText={touched.userType ? errors.userType : ''}
                   error={Boolean(errors.userType)}
                   value={userType}
-                  onChange={changeUserType}>
+                  onChange={handleChange}>
                   {userTypes.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
                       {option.label}
@@ -214,62 +155,16 @@ export default function LivePreviewExample(props) {
                 </TextField>
               </div>
             </Card>
-            {clientSection && (
-              <ClientForm
-                companyQuery={companyQuery}
-                company={company}
-                clientDashboard={clientDashboard}
-                {...props}
-              />
-            )}
 
-            {employeeSection && (
-              <Card className="p-4 mb-4">
-                <div className="font-size-lg font-weight-bold">
-                  Employee Section
-                </div>
-                <Divider className="my-4" />
-
-                <FormGroup>
-                  <FormControlLabel
-                    name="employeeDashboard"
-                    control={
-                      <Checkbox
-                        className="employeeDashboard"
-                        onChange={handleChange}
-                        checked={employeeDashboard}
-                        value={employeeDashboard}
-                      />
-                    }
-                    label="Employee Dashboard"
-                  />
-                  <FormControlLabel
-                    name="admin"
-                    control={
-                      <Checkbox
-                        className="admin"
-                        checked={admin}
-                        onChange={handleChange}
-                        value={admin}
-                      />
-                    }
-                    label="Admin"
-                  />
-                  <TextField
-                    fullWidth
-                    helperText={touched.hourlyRate ? errors.hourlyRate : ''}
-                    error={Boolean(errors.hourlyRate)}
-                    onChange={handleChange}
-                    className="m-2 hourlyRate"
-                    value={hourlyRate}
-                    name="hourlyRate"
-                    label="Hourly Rate"
-                    placeholder="50"
-                    multiline
-                  />
-                </FormGroup>
-              </Card>
-            )}
+            <FormSpliter
+              userType={userType}
+              errors={errors}
+              company={company}
+              handleChange={handleChange}
+              companyQuery={companyQuery}
+              touched={touched}
+              values={props.values}
+            />
             <Card className={'p-4 mb-4'}>
               <Button
                 type="submit"
@@ -287,16 +182,15 @@ export default function LivePreviewExample(props) {
             </Card>
           </Grid>
         </Grid>
-      </form>
+      </Form>
     );
   };
-
   return (
     <Formik
       initialValues={defaultValues()}
       validationSchema={validationSchema}
-      onSubmit={onSubmit}
-      render={(props) => <Form {...props} />}
-    />
+      onSubmit={onSubmit}>
+      {(newProps) => <NewForm companyQuery={companyQuery} {...newProps} />}
+    </Formik>
   );
 }

@@ -23,15 +23,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0eee0337-7f35-4dcd-baa3-16af154923f1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/bamburgh-react-admin-dashboard-pro.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bamburgh-react-admin-dashboard-pro.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.nyc_output/out.json" beforeDir="false" afterPath="$PROJECT_DIR$/.nyc_output/out.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/integration/UserCreate.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/integration/UserCreate.spec.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cypress/support/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/cypress/support/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clientConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/clientConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar/SimpleModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/SimpleModal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar/Wraper.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/Wraper.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/ClientForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/ClientForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/CompanyTextField.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/CompanyTextField.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/User/Form.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Form.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/List.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/List.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/User/validationSchema.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/validationSchema.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/Edit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Edit.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,12 +57,6 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="JsFlowSettings">
-    <service-enabled>true</service-enabled>
-    <exe-path />
-    <other-services-enabled>true</other-services-enabled>
-    <auto-save>true</auto-save>
-  </component>
   <component name="ProjectId" id="1ofe44BxAgW8MjuYDOLAG8AXn4y" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -72,7 +69,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/User" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -86,6 +83,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/User" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/pages/users" />
       <recent name="$PROJECT_DIR$/cypress/integration" />
@@ -159,6 +157,8 @@
       <workItem from="1613730299126" duration="32796000" />
       <workItem from="1613810193299" duration="120650000" />
       <workItem from="1614238538779" duration="9569000" />
+      <workItem from="1614357978602" duration="17908000" />
+      <workItem from="1614409758010" duration="4993000" />
     </task>
     <servers />
   </component>
@@ -187,7 +187,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/Calendar/index.js</url>
-          <line>124</line>
+          <line>138</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>

@@ -25,6 +25,9 @@ export function makeServer({ environment = 'test' } = {}) {
       user: Model,
       company: Model,
       token: Model,
+      secondaryEmail: Model.extend({
+        user: belongsTo()
+      }),
       event: Model.extend({
         attendees: hasMany(),
         employee: belongsTo('user')
@@ -39,7 +42,25 @@ export function makeServer({ environment = 'test' } = {}) {
           return faker.internet.email();
         }
       }),
+      secondaryEmail: Factory.extend({
+        email(email) {
+          return faker.internet.email();
+        }
+      }),
       user: Factory.extend({
+        email(email) {
+          return faker.internet.email();
+        },
+        secondaryEmails() {
+          return [faker.internet.email(), faker.internet.email()];
+        },
+        firstName() {
+          return faker.name.firstName();
+        },
+        lastName() {
+          return faker.name.lastName();
+        },
+
         withEmployeeEvents: trait({
           afterCreate(employee, server) {
             server.createList('event', 10, 'withAttendees', {
@@ -93,7 +114,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', 'withEmployeeEvents', {
         firstName: 'Nick',
         lastName: 'Stock',
-        emails: ['nick@gembani.com'],
+        email: 'brady@test.com',
         userType: 'employee',
         hourlyRate: '50',
         clientDashboard: true,
@@ -102,7 +123,7 @@ export function makeServer({ environment = 'test' } = {}) {
       server.create('user', {
         firstName: 'Brady',
         lastName: 'Simmons',
-        emails: ['brady@test.com'],
+        email: 'brady@test.com',
         userType: 'client',
         clientDashboard: true,
         company: 1
@@ -114,10 +135,11 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.get('/users', (schema, req) => {
         const users = schema.users.all();
-        if (req.queryParams) {
+        if (req.queryParams['filter[userType]']) {
           console.log(users);
           const userFiltered = users.models.filter(
-            (model) => model.attrs.userType === 'client'
+            (model) =>
+              model.attrs.userType === req.queryParams['filter[userType]']
           );
           users.models = userFiltered;
         }
@@ -131,10 +153,7 @@ export function makeServer({ environment = 'test' } = {}) {
         return schema.companies.all();
       });
 
-      this.post('/users', (schema, request) => {
-        const { data } = JSON.parse(request.requestBody);
-        return schema.users.create(data.attributes);
-      });
+      this.post('/users');
 
       this.patch('/users/:id');
       this.post('/tokens', (schema) => {
@@ -145,6 +164,7 @@ export function makeServer({ environment = 'test' } = {}) {
           authState: { token: 'HelloWorld', expiresIn: 3600 }
         });
       });
+      this.post('/secondaryEmails');
       this.post('/companies', (schema, req) => {
         const { data } = JSON.parse(req.requestBody);
         return schema.companies; //TODO
