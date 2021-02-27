@@ -5,13 +5,9 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Table, Card, CardContent, Button } from '@material-ui/core';
 
-import Pagination from '@material-ui/lab/Pagination';
-
-import avatar2 from '../../assets/images/avatars/avatar2.jpg';
-
 export default function (props) {
   const { employee, client, error } = props;
-
+  debugger;
   return (
     <>
       <Card className="card-box mb-spacing-6-x2">
@@ -79,9 +75,6 @@ export default function (props) {
           </div>
           <div className="divider" />
           <div className="divider" />
-          <div className="p-3 d-flex justify-content-center">
-            <Pagination className="pagination-primary" count={10} />
-          </div>
         </CardContent>
       </Card>
       <Card className="card-box mb-spacing-6-x2">
@@ -158,9 +151,6 @@ export default function (props) {
           </div>
           <div className="divider" />
           <div className="divider" />
-          <div className="p-3 d-flex justify-content-center">
-            <Pagination className="pagination-primary" count={10} />
-          </div>
         </CardContent>
       </Card>
     </>

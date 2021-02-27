@@ -11,7 +11,7 @@ export default function ClientForm(props) {
     errors,
 
     touched,
-    company,
+    companyId,
     handleChange
   } = props;
 
@@ -37,7 +37,7 @@ export default function ClientForm(props) {
         companyQuery={companyQuery}
         errors={errors}
         touched={touched}
-        company={company}
+        companyId={companyId}
         handleChange={handleChange}
       />
     </Card>

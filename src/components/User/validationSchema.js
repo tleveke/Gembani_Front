@@ -17,7 +17,7 @@ export default Yup.object({
     then: Yup.string().required(),
     otherwise: Yup.string()
   }),
-  company: Yup.string().when('userType', {
+  companyId: Yup.string().when('userType', {
     is: 'client',
     then: Yup.string().required(),
     otherwise: Yup.string()

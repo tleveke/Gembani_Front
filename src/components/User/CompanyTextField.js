@@ -5,17 +5,17 @@ import { MenuItem, TextField } from '@material-ui/core';
 export default function CompanyTextField(props) {
   const { data, meta, error, isLoading, isFetching } = props.companyQuery;
 
-  const { errors, touched, company, handleChange } = props;
+  const { errors, touched, companyId, handleChange } = props;
 
   return (
     <TextField
       fullWidth
       className="m-2 company"
       select
-      name={'company'}
+      name={'companyId'}
       onChange={handleChange}
       label="Select Company"
-      value={company}
+      value={companyId}
       helperText={touched.company ? errors.company : ''}
       error={Boolean(errors.company)}>
       {data.map((option) => (

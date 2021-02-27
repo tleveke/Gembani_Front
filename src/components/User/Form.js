@@ -45,7 +45,7 @@ export default function UserForm(props) {
         email: '',
         secondaryEmails: [],
         userType: '',
-        company: '',
+        companyId: '',
         admin: false,
         clientDashboard: false,
         employeeDashboard: false,
@@ -86,7 +86,7 @@ export default function UserForm(props) {
 
   const NewForm = (props) => {
     const {
-      values: { firstName, lastName, email, userType, company },
+      values: { firstName, lastName, email, userType, companyId },
 
       errors,
       touched,
@@ -159,7 +159,7 @@ export default function UserForm(props) {
             <FormSpliter
               userType={userType}
               errors={errors}
-              company={company}
+              companyId={companyId}
               handleChange={handleChange}
               companyQuery={companyQuery}
               touched={touched}

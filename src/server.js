@@ -93,6 +93,14 @@ export function makeServer({ environment = 'test' } = {}) {
             return undefined;
           }
         },
+        afterCreate(user, server) {
+          if (user.userType == 'client') {
+            let company = server.create('company');
+            user.update({
+              companyId: company.id
+            });
+          }
+        },
         secondaryEmails() {
           return [faker.internet.email(), faker.internet.email()];
         },
@@ -112,6 +120,9 @@ export function makeServer({ environment = 'test' } = {}) {
         })
       }),
       company: Factory.extend({
+        name() {
+          return faker.company.companyName();
+        },
         withCompanyBookings: trait({
           afterCreate(company, server) {
             new Array(10).fill().map(() =>
