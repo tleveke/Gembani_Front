@@ -86,6 +86,13 @@ export function makeServer({ environment = 'test' } = {}) {
         userType() {
           return faker.random.boolean() ? 'client' : 'employee';
         },
+        hourlyRate() {
+          if (this.userType == 'employee') {
+            return faker.random.number(20, 200);
+          } else {
+            return undefined;
+          }
+        },
         secondaryEmails() {
           return [faker.internet.email(), faker.internet.email()];
         },
