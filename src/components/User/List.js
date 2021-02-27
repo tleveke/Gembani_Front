@@ -22,10 +22,7 @@ export default function (props) {
           <div className="card-header--actions">
             <Link
               to={{
-                pathname: '/user/create',
-                state: {
-                  userType: 'client'
-                }
+                pathname: '/user/create?userType=client'
               }}
               size="small"
               className="btn-primary d-40 btn-icon p-0">
@@ -114,10 +111,7 @@ export default function (props) {
           <div className="card-header--actions">
             <Link
               to={{
-                pathname: '/user/create',
-                state: {
-                  userType: 'employee'
-                }
+                pathname: '/user/create?userType=employee'
               }}
               size="small"
               className="btn-primary d-40 btn-icon p-0">

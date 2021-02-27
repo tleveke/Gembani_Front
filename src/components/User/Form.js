@@ -32,15 +32,12 @@ const userTypes = [
 export default function LivePreviewExample(props) {
   const { userType, user, onCancel } = props;
   const location = useLocation();
-  const type = location.state.userType;
   const [state, setState] = useState({
-    employeeSection: type == 'employee',
-    clientSection: type == 'client'
+    employeeSection: user.userType == 'employee',
+    clientSection: user.userType == 'client'
   });
 
-  
-  
-    /*if (type ==="employee") {
+  /*if (type ==="employee") {
       setState({
         employeeSection: true,
         clientSection: false
@@ -203,7 +200,7 @@ export default function LivePreviewExample(props) {
                       {option.label}
                     </MenuItem>
                   ))}
-                  </TextField>
+                </TextField>
               </div>
             </Card>
             {clientSection && (
