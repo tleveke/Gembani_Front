@@ -83,6 +83,9 @@ export function makeServer({ environment = 'test' } = {}) {
         email(email) {
           return faker.internet.email();
         },
+        userType() {
+          return faker.random.boolean() ? 'client' : 'employee';
+        },
         secondaryEmails() {
           return [faker.internet.email(), faker.internet.email()];
         },
@@ -269,7 +272,6 @@ export function makeServer({ environment = 'test' } = {}) {
         quantity: 2,
         unitPrice: 187
       });
-     
     },
 
     routes() {
