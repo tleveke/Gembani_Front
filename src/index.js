@@ -6,9 +6,9 @@ import { createServer, Response } from 'miragejs';
 
 import { makeServer } from './server';
 
-if (process.env.NODE_ENV === 'development') {
-  makeServer({ environment: 'development' });
-}
+// if (process.env.NODE_ENV === 'development') {
+//   makeServer({ environment: 'development' });
+// }
 
 if (window.Cypress) {
   // If your app makes requests to domains other than / (the current domain), add them
@@ -37,9 +37,12 @@ if (window.Cypress) {
   });
 }
 
-ReactDOM.render(<React.StrictMode>
-  <App />
-</React.StrictMode>, document.getElementById('root'));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

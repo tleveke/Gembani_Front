@@ -97,6 +97,6 @@ const schema = {
 
 export default {
   ssrMode: false,
-  url: 'http://localhost:3000/api/',
+  url: '/api/',
   schema
 };

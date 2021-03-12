@@ -18,16 +18,13 @@ import { useHistory } from 'react-router-dom';
 
 import { useSignIn } from 'react-auth-kit';
 
-import MailOutlineTwoToneIcon from '@material-ui/icons/MailOutlineTwoTone';
-import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-
 import hero8 from '../../assets/images/hero-bg/hero-8.jpg';
 import { useMutation } from 'jsonapi-react';
 import * as Yup from 'yup';
-import NameIcon from '@material-ui/icons/SupervisorAccount';
 import EmailIcon from '@material-ui/icons/Email';
 import LockIcon from '@material-ui/icons/Lock';
 import { Formik } from 'formik';
+import OauthPopup from 'react-oauth-popup';
 
 const validationSchema = Yup.object({
   email: Yup.string('Enter your email')
@@ -39,18 +36,14 @@ const validationSchema = Yup.object({
 const SignInComponent = () => {
   const signIn = useSignIn();
   const [checked1, setChecked1] = useState(true);
-  const [addToken, { isLoading, data, error, errors }] = useMutation('tokens');
+  const [addToken, { isLoading, data, error, errors }] = useMutation(
+    'front_tokens'
+  );
   let history = useHistory();
 
   const createToken = async (formData, { setSubmitting }) => {
     const res = await addToken(formData);
-    if (
-      signIn({
-        expiresIn: res.data['authState'].expiresIn,
-        token: res.data['authState'].token,
-        authState: res.data['authState']
-      })
-    ) {
+    if (signInFromRes(res)) {
       // Only if you are using refreshToken feature
       setSubmitting(false);
       history.push('/user/list');
@@ -58,8 +51,15 @@ const SignInComponent = () => {
     } else {
       //Throw error
     }
+  }; //
+  const signInFromRes = (res) => {
+    debugger;
+    return signIn({
+      expiresIn: res.data['authState'].expiresIn,
+      token: res.data['authState'].token,
+      authState: res.data['authState']
+    });
   };
-
   const Form = (props) => {
     const {
       values: { email, password },
@@ -70,9 +70,29 @@ const SignInComponent = () => {
       handleSubmit
     } = props;
     console.table(props);
+    const onSuccess = async (code, params) => {
+      let res = await addToken({ code: code, realmId: params.get('realmId') });
+
+      if (signInFromRes(res)) {
+        history.push('/user/list');
+        // Redirect or do-something
+      } else {
+        //Throw error
+      }
+    };
+    const onFailure = (response) => {};
 
     return (
       <form onSubmit={handleSubmit}>
+        <OauthPopup
+          url="/quickbooks_token/"
+          responseType="code"
+          state={'1234'}
+          clientId="ABsGkYn2RmgL3RTGrIWTdvqVaTdZEpLRfFCWzkhnYaBtR4JniY"
+          onCode={onSuccess}
+          onClose={onFailure}>
+          <div>Click me to open a Popup</div>
+        </OauthPopup>
         <div className="mb-4">
           <TextField
             variant="outlined"
