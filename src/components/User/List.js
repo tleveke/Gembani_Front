@@ -7,7 +7,6 @@ import { Table, Card, CardContent, Button } from '@material-ui/core';
 
 export default function (props) {
   const { employee, client, error } = props;
-  debugger;
   return (
     <>
       <Card className="card-box mb-spacing-6-x2">

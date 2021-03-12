@@ -295,18 +295,20 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api';
 
-      this.get('/users', (schema, req) => {
-        const users = schema.users.all();
-        if (req.queryParams['filter[userType]']) {
-          console.log(users);
-          const userFiltered = users.models.filter(
-            (model) =>
-              model.attrs.userType === req.queryParams['filter[userType]']
-          );
-          users.models = userFiltered;
-        }
-        return users;
-      });
+      this.passthrough('/users')
+
+      // this.get('/users', (schema, req) => {
+      //   const users = schema.users.all();
+      //   if (req.queryParams['filter[userType]']) {
+      //     console.log(users);
+      //     const userFiltered = users.models.filter(
+      //       (model) =>
+      //         model.attrs.userType === req.queryParams['filter[userType]']
+      //     );
+      //     users.models = userFiltered;
+      //   }
+      //   return users;
+      // });
 
       this.get('/invoices', (schema) => {
         return schema.invoices.all();
@@ -330,7 +332,7 @@ export function makeServer({ environment = 'test' } = {}) {
       });
 
       this.patch('/users/:id');
-      this.post('/tokens', (schema) => {
+      this.post('/front_tokens', (schema) => {
         const today = new Date();
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);

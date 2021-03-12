@@ -53,7 +53,6 @@ const SignInComponent = () => {
     }
   }; //
   const signInFromRes = (res) => {
-    debugger;
     return signIn({
       expiresIn: res.data['authState'].expiresIn,
       token: res.data['authState'].token,

@@ -8,7 +8,6 @@ import { FormGroup } from '@material-ui/core';
 
 export default function FormSpliter(props) {
   const { userType } = props;
-  debugger;
   if (userType == 'client') {
     return <ClientForm {...props} />;
   } else if (userType == 'employee') {

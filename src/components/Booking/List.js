@@ -41,7 +41,6 @@ export default function LivePreviewExample(props) {
   };
   const onSubmit = async (data) => {
     let res = await mutate(data);
-    debugger;
   };
   const test = async (props) => {
     let a = defaultValues();
