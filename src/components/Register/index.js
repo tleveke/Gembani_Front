@@ -16,7 +16,7 @@ import {
 
 import { useHistory } from 'react-router-dom';
 
-import { useSignUp } from 'react-auth-kit';
+import { useSignIn } from 'react-auth-kit';
 
 import hero8 from '../../assets/images/hero-bg/hero-8.jpg';
 import { useMutation } from 'jsonapi-react';
@@ -34,8 +34,8 @@ const validationSchema = Yup.object({
   password: Yup.string('').required('Enter a strong password')
 });
 
-const SignUpComponent = () => {
-  const signUp = useSignUp();
+const SignInComponent = () => {
+  const signIn = useSignIn();
   const [checked1, setChecked1] = useState(true);
   const [addToken, { isLoading, data, error, errors }] = useMutation(
     'front_tokens'
@@ -44,7 +44,7 @@ const SignUpComponent = () => {
 
   const createToken = async (formData, { setSubmitting }) => {
     const res = await addToken(formData);
-    if (signUpFromRes(res)) {
+    if (signInFromRes(res)) {
       // Only if you are using refreshToken feature
       setSubmitting(false);
       history.push('/user/list');
@@ -53,8 +53,8 @@ const SignUpComponent = () => {
       //Throw error
     }
   }; //
-  const signUpFromRes = (res) => {
-    return signUp({
+  const signInFromRes = (res) => {
+    return signIn({
       expiresIn: res.data['authState'].expiresIn,
       token: res.data['authState'].token,
       authState: res.data['authState']
@@ -73,7 +73,7 @@ const SignUpComponent = () => {
     const onSuccess = async (code, params) => {
       let res = await addToken({ code: code, realmId: params.get('realmId') });
 
-      if (signUpFromRes(res)) {
+      if (signInFromRes(res)) {
         history.push('/user/list');
         // Redirect or do-something
       } else {
@@ -292,4 +292,4 @@ const SignUpComponent = () => {
   );
 };
 
-export default SignUpComponent;
+export default SignInComponent;
