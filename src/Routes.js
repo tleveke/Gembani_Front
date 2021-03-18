@@ -108,6 +108,12 @@ const Routes = () => {
                 <Login />
               </MinimalLayout>
             </Route>
+            <Route
+              path={'/sessions/register'}>
+              <MinimalLayout>
+                <Register />
+              </MinimalLayout>
+            </Route>
 
             <PrivateRoute
               component={CalendarPage}
@@ -155,11 +161,6 @@ const Routes = () => {
               loginPath={'/sessions/new'}
               exact
               path={'/invoice/list'}></PrivateRoute>
-            <PrivateRoute
-              component={InvoiceView}
-              loginPath={'/sessions/register'}
-              exact
-              path={'/invoice/view/:id'}></PrivateRoute>
           </Suspense>
         </AnimatePresence>
       </ThemeProvider>
