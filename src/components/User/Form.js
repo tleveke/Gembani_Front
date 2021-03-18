@@ -76,9 +76,13 @@ export default function UserForm(props) {
   );
   const history = useHistory();
   const onSubmit = async (formData, { setSubmitting }) => {
-    const res = await mutate({
+    console.log('formdata',formData);
+    //console.log('...formdata',...formData);
+    /*const res = await mutate({
       ...formData
-    });
+    });*/
+    //fetch('/users', {method: "post",body: formData});
+    const res = await mutate(formData); // BODY VIDE Marche pas
     const { onComplete, user } = props;
     setSubmitting(false);
     onComplete(res);

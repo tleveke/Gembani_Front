@@ -295,20 +295,37 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api';
 
-      this.passthrough('/users')
+      //this.passthrough('/users')
 
-      // this.get('/users', (schema, req) => {
-      //   const users = schema.users.all();
-      //   if (req.queryParams['filter[userType]']) {
-      //     console.log(users);
-      //     const userFiltered = users.models.filter(
-      //       (model) =>
-      //         model.attrs.userType === req.queryParams['filter[userType]']
-      //     );
-      //     users.models = userFiltered;
-      //   }
-      //   return users;
-      // });
+      /*this.get('/users', (schema, req) => {
+        const users = schema.users.all();
+        if (req.queryParams['filter[userType]']) {
+          console.log(users);
+          const userFiltered = users.models.filter(
+            (model) =>
+              model.attrs.userType === req.queryParams['filter[userType]']
+          );
+          users.models = userFiltered;
+        }
+        console.log(users);
+        return users;
+      });*/
+      this.passthrough('/users');
+      this.passthrough('/companies')
+
+      /*this.get('/users', (schema, req) => {
+        return fetch("http://localhost:7000/users/", {
+          headers: {
+            "accepts": "application/json"
+          }
+        })
+          .then(res => {
+            console.log(res);
+            return res.json();
+          })
+          .then(json => {return json})
+          .catch(a => { console.log(a) });
+      });*/
 
       this.get('/invoices', (schema) => {
         return schema.invoices.all();
@@ -318,11 +335,12 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('/events');
       this.get('/events/:id');
       this.get('/users/:id');
-      this.get('/companies', (schema) => {
+      
+      /*this.get('/companies', (schema) => {
         return schema.companies.all();
-      });
+      });*/
 
-      this.post('/users');
+      //this.post('/users');
       this.get('/emails/:type', (schema, request) => {
         return schema.emails.findBy({ type: request.params.type });
       });
@@ -347,7 +365,7 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post('/bookingsCollections');
       this.post('/secondaryEmails');
-      this.post('/companies');
+      //this.post('/companies');
     }
   });
 
