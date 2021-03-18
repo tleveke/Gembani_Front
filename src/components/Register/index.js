@@ -31,28 +31,26 @@ const validationSchema = Yup.object({
   email: Yup.string('Enter your email')
     .email('Enter a valid email')
     .required('Email is required'),
-  password: Yup.string('').required('Enter a strong password')
+  password: Yup.string('').required('Enter a strong password'),
+  passwordConfirm: Yup.string('').required('confirm your password')
 });
 
 const SignInComponent = () => {
   const signIn = useSignIn();
   const [checked1, setChecked1] = useState(true);
-  const [addToken, { isLoading, data, error, errors }] = useMutation(
-    'front_tokens'
+  const [registerAccount, { isLoading, data, error, errors }] = useMutation(
+    'authentification/register'
   );
   let history = useHistory();
 
-  const createToken = async (formData, { setSubmitting }) => {
-    const res = await addToken(formData);
-    if (signInFromRes(res)) {
-      // Only if you are using refreshToken feature
-      setSubmitting(false);
-      history.push('/user/list');
-      // Redirect or do-something
+  const verifPassword = async (formData, { setSubmitting }) => {
+    debugger
+    if (this.password != this.passwordConfirm) {
+      const res = await registerAccount(formData);
     } else {
-      //Throw error
+      alert("the passwords doesn't match")
     }
-  }; //
+  }; 
   const signInFromRes = (res) => {
     return signIn({
       expiresIn: res.data['authState'].expiresIn,
@@ -62,37 +60,15 @@ const SignInComponent = () => {
   };
   const Form = (props) => {
     const {
-      values: { email, password },
+      values: { email, password, passwordConfirm },
       errors,
       touched,
       handleChange,
       isValid,
       handleSubmit
     } = props;
-    console.table(props);
-    const onSuccess = async (code, params) => {
-      let res = await addToken({ code: code, realmId: params.get('realmId') });
-
-      if (signInFromRes(res)) {
-        history.push('/user/list');
-        // Redirect or do-something
-      } else {
-        //Throw error
-      }
-    };
-    const onFailure = (response) => {};
-
     return (
       <form onSubmit={handleSubmit}>
-        <OauthPopup
-          url="/quickbooks_token/"
-          responseType="code"
-          state={'1234'}
-          clientId="ABsGkYn2RmgL3RTGrIWTdvqVaTdZEpLRfFCWzkhnYaBtR4JniY"
-          onCode={onSuccess}
-          onClose={onFailure}>
-          <div>Click me to open a Popup</div>
-        </OauthPopup>
         <div className="mb-4">
           <TextField
             variant="outlined"
@@ -137,6 +113,28 @@ const SignInComponent = () => {
           />
           <PasswordStrengthMeter  password={password}></PasswordStrengthMeter>
         </div>
+        <div className="mb-3">
+          <TextField
+            variant="outlined"
+            className="mb-4"
+            name="passwordConfirm"
+            className="passwordConfirm"
+            helperText={touched.passwordConfirm ? errors.passwordConfirm : ''}
+            error={Boolean(errors.passwordConfirm)}
+            label="Confirm Password"
+            fullWidth
+            type="password"
+            value={passwordConfirm}
+            onChange={handleChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockIcon />
+                </InputAdornment>
+              )
+            }}
+          />
+        </div>
         <div className="d-flex justify-content-between align-items-center font-size-md">
           <FormControlLabel
             control={
@@ -144,14 +142,6 @@ const SignInComponent = () => {
             }
             label="Remember me"
           />
-          <div>
-            <a
-              href="#/"
-              onClick={(e) => e.preventDefault()}
-              className="text-first">
-              Recover password
-            </a>
-          </div>
         </div>
         <div className="text-center py-4">
           <Button
@@ -185,17 +175,17 @@ const SignInComponent = () => {
                         <div className="py-4">
                           <div className="text-center">
                             <h1 className="display-4 mb-1 font-weight-bold">
-                              Login
+                              Register
                             </h1>
                             <p className="font-size-lg mb-0 text-black-50">
-                              Fill in the fields below to login to your account
+                              Fill in the fields below to register a new account
                             </p>
                           </div>
                           <Formik
                             render={(props) => <Form {...props} />}
                             validationSchema={validationSchema}
                             initialValues={values}
-                            onSubmit={createToken}
+                            onSubmit={verifPassword}
                           />
                         </div>
                       </Grid>
