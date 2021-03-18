@@ -310,6 +310,7 @@ export function makeServer({ environment = 'test' } = {}) {
         console.log(users);
         return users;
       });*/
+      this.passthrough('/authentification/login')
       this.passthrough('/users');
       this.passthrough('/companies')
 

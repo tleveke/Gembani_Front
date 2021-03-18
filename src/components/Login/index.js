@@ -37,12 +37,14 @@ const SignInComponent = () => {
   const signIn = useSignIn();
   const [checked1, setChecked1] = useState(true);
   const [addToken, { isLoading, data, error, errors }] = useMutation(
-    'front_tokens'
+    'authentification/login'
   );
   let history = useHistory();
 
-  const createToken = async (formData, { setSubmitting }) => {
-    const res = await addToken(formData);
+  const loginAccount = async (formData, { setSubmitting }) => {
+    console.log({formData});
+    const res = await addToken({formData});
+    console.log(res)
     if (signInFromRes(res)) {
       // Only if you are using refreshToken feature
       setSubmitting(false);
@@ -193,7 +195,7 @@ const SignInComponent = () => {
                             render={(props) => <Form {...props} />}
                             validationSchema={validationSchema}
                             initialValues={values}
-                            onSubmit={createToken}
+                            onSubmit={loginAccount}
                           />
                         </div>
                       </Grid>
