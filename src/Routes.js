@@ -20,6 +20,7 @@ import InvoiceList from './pages/invoices/List';
 import BookingList from './pages/bookings/List';
 import CalendarPage from './pages/events/Calendar';
 import SettingsPage from './pages/settings/Settings';
+import Register from './components/Register'
 
 // Layout Blueprints
 
@@ -154,6 +155,11 @@ const Routes = () => {
               loginPath={'/sessions/new'}
               exact
               path={'/invoice/list'}></PrivateRoute>
+            <PrivateRoute
+              component={InvoiceView}
+              loginPath={'/sessions/register'}
+              exact
+              path={'/invoice/view/:id'}></PrivateRoute>
           </Suspense>
         </AnimatePresence>
       </ThemeProvider>
