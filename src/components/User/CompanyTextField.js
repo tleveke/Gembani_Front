@@ -4,7 +4,9 @@ import { MenuItem, TextField } from '@material-ui/core';
 import { useQuery } from 'jsonapi-react';
 
 export default function CompanyTextField(props) {
-  const { data, error, isLoading, meta, isFetching } = useQuery('companies');
+  const { data, error, isLoading, meta, isFetching, client } = useQuery('companies');
+  const bearer = localStorage.getItem('BearerToken')
+  client.addHeader('Authorization', `Bearer ${bearer}`)
   console.log('yo', data)
   //const { data, meta, error, isLoading, isFetching } = props.companyQuery;
 

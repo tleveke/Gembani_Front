@@ -14,7 +14,7 @@ import {
   Container
 } from '@material-ui/core';
 
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import { useSignIn } from 'react-auth-kit';
 
@@ -45,8 +45,10 @@ const SignInComponent = () => {
 
   const verifPassword = async (formData, { setSubmitting }) => {
     console.log(formData)
-    if (formData.password != formData.passwordConfirm) {
+    if (formData.password === formData.passwordConfirm) {
       const res = await registerAccount(formData);
+      history.push('/sessions/new')
+
     } else {
       alert("the passwords doesn't match")
     }
@@ -180,6 +182,9 @@ const SignInComponent = () => {
                             <p className="font-size-lg mb-0 text-black-50">
                               Fill in the fields below to register a new account
                             </p>
+                              <Button component={Link} to="/sessions/new" className="font-size-lg mb-0 text-black-50">
+                                Sign in !
+                            </Button>
                           </div>
                           <Formik
                             render={(props) => <Form {...props} />}

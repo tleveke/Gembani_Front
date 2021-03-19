@@ -11,10 +11,12 @@ import {
   ListItem,
   Tooltip,
   TextField,
-  Container
+  Container,
 } from '@material-ui/core';
 
-import { useHistory } from 'react-router-dom';
+
+
+import { useHistory,Link } from 'react-router-dom';
 
 import { useSignIn } from 'react-auth-kit';
 
@@ -39,12 +41,13 @@ const SignInComponent = () => {
   const [addToken, { isLoading, data, error, errors }] = useMutation(
     'authentification/login'
   );
+  //authentification/login
   let history = useHistory();
 
   const loginAccount = async (formData, { setSubmitting }) => {
-    console.log({formData});
-    const res = await addToken({formData});
-    console.log('response',res)
+    console.log({ formData });
+    const res = await addToken({ formData });
+    console.log('response', res)
     if (signInFromRes(res)) {
       // Only if you are using refreshToken feature
       setSubmitting(false);
@@ -55,10 +58,12 @@ const SignInComponent = () => {
     }
   }; //
   const signInFromRes = (res) => {
+    localStorage.setItem('BearerToken', res.token);
     return signIn({
       expiresIn: res.expiresIn,
       token: res.token,
-      authState: res
+      authState: res,
+      tokenType: 'Bearer'
     });
   };
   const Form = (props) => {
@@ -81,7 +86,7 @@ const SignInComponent = () => {
         //Throw error
       }
     };
-    const onFailure = (response) => {};
+    const onFailure = (response) => { };
 
     return (
       <form onSubmit={handleSubmit}>
@@ -190,6 +195,9 @@ const SignInComponent = () => {
                             <p className="font-size-lg mb-0 text-black-50">
                               Fill in the fields below to login to your account
                             </p>
+                              <Button component={Link} to="/sessions/register" className="font-size-lg mb-0 text-black-50">
+                                Sign up !
+                            </Button>
                           </div>
                           <Formik
                             render={(props) => <Form {...props} />}

@@ -356,9 +356,11 @@ export function makeServer({ environment = 'test' } = {}) {
         const today = new Date();
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate() + 1);
-        return schema.tokens.create({
+        let token = schema.tokens.create({
           authState: { token: 'HelloWorld', expiresIn: 3600 }
         });
+        console.log(token);
+        return token;
       });
 
       this.get('/bookings', (schema) => {
