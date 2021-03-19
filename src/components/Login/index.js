@@ -44,7 +44,7 @@ const SignInComponent = () => {
   const loginAccount = async (formData, { setSubmitting }) => {
     console.log({formData});
     const res = await addToken({formData});
-    console.log(res)
+    console.log('response',res)
     if (signInFromRes(res)) {
       // Only if you are using refreshToken feature
       setSubmitting(false);
@@ -56,9 +56,9 @@ const SignInComponent = () => {
   }; //
   const signInFromRes = (res) => {
     return signIn({
-      expiresIn: res.data['authState'].expiresIn,
-      token: res.data['authState'].token,
-      authState: res.data['authState']
+      expiresIn: res.expiresIn,
+      token: res.token,
+      authState: res
     });
   };
   const Form = (props) => {
