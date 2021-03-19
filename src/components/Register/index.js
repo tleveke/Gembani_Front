@@ -44,8 +44,8 @@ const SignInComponent = () => {
   let history = useHistory();
 
   const verifPassword = async (formData, { setSubmitting }) => {
-    debugger
-    if (this.password != this.passwordConfirm) {
+    console.log(formData)
+    if (formData.password != formData.passwordConfirm) {
       const res = await registerAccount(formData);
     } else {
       alert("the passwords doesn't match")
@@ -124,7 +124,7 @@ const SignInComponent = () => {
             label="Confirm Password"
             fullWidth
             type="password"
-            value={passwordConfirm}
+            value={passwordConfirm || ''}
             onChange={handleChange}
             InputProps={{
               startAdornment: (
